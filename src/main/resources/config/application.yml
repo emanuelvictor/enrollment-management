@@ -1,0 +1,24 @@
+spring:
+
+  #DATA SOURCE
+  datasource:
+    hikari.pool-name: ${spring.application.name}
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    hikari.maximum-pool-size: 3
+    url: ${jdbc.database.url}
+    username: ${jdbc.database.username}
+    password: ${jdbc.database.password}
+
+  #JPA
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    format_sql: false
+    properties:
+      hibernate.dialect: br.com.emanuelvictor.enrollment.infrastructure.hibernate.dialect.PostgreSQLDialect
+
+server:
+  error:
+    include-stacktrace: never

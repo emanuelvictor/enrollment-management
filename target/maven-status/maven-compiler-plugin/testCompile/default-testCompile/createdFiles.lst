@@ -1,0 +1,11 @@
+br\com\emanuelvictor\enrollment\domain\repository\ClassRepositoryTests.class
+br\com\emanuelvictor\enrollment\application\i18n\MessageSourceHolderTests$WhenMustFailDone.class
+br\com\emanuelvictor\enrollment\domain\service\EnrollmentServiceTests.class
+br\com\emanuelvictor\enrollment\application\api\resources\ClassResourceTests.class
+br\com\emanuelvictor\enrollment\application\api\resources\PeopleResourceTests.class
+br\com\emanuelvictor\enrollment\application\api\advice\RestResponseEntityExceptionHandlerTests.class
+br\com\emanuelvictor\enrollment\application\i18n\ResourceBundleMessageSourceTests.class
+br\com\emanuelvictor\enrollment\application\api\resources\EnrollmentResourceTests.class
+br\com\emanuelvictor\enrollment\application\i18n\MessageSourceHolderTests.class
+br\com\emanuelvictor\enrollment\domain\repository\ErollmentRepositoryTests.class
+br\com\emanuelvictor\enrollment\domain\repository\PeopleRepositoryTests.class
