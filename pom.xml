@@ -9,9 +9,8 @@
         <relativePath/>
     </parent>
 
-    <packaging>war</packaging>
-    <artifactId>enrollment</artifactId>
-    <name>enrollment</name>
+    <artifactId>enrollments</artifactId>
+    <name>enrollments</name>
     <description>Project management enrollment</description>
     <groupId>br.com.emanuelvictor.enrollment</groupId>
     <version>0.1</version>
@@ -29,6 +28,7 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <wiremock.version>2.27.2</wiremock.version>
         <brazilian-document-validator.version>1.8</brazilian-document-validator.version>
+        <mainClass>br.com.emanuelvictor.enrollment.EnrollmentManagementSolution</mainClass>
     </properties>
     <dependencies>
 
@@ -120,19 +120,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>ico</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>jasper</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -167,51 +159,6 @@
                     </rules>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.directory}/libs
-                            </outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <classifier>client-to-client</classifier>
-                            <includes>
-                                <include>**/**</include>
-                            </includes>
-                            <archive>
-                                <manifest>
-                                    <addClasspath>true</addClasspath>
-                                    <classpathPrefix>libs/</classpathPrefix>
-                                    <mainClass>
-                                        br.com.emanuelvictor.enrollment.EnrollmentManagementSolution
-                                    </mainClass>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -224,13 +171,17 @@
             <properties>
                 <active.profile>dev</active.profile>
                 <!-- production connection-->
-                <ENROLLMENTS_VERIFIER_JDBC_DATABASE_URL>jdbc:postgresql://localhost:5432/enrollment</ENROLLMENTS_VERIFIER_JDBC_DATABASE_URL>
+                <ENROLLMENTS_VERIFIER_JDBC_DATABASE_URL>jdbc:postgresql://localhost:5432/enrollment
+                </ENROLLMENTS_VERIFIER_JDBC_DATABASE_URL>
                 <ENROLLMENTS_VERIFIER_JDBC_DATABASE_USERNAME>enrollment</ENROLLMENTS_VERIFIER_JDBC_DATABASE_USERNAME>
                 <ENROLLMENTS_VERIFIER_JDBC_DATABASE_PASSWORD>enrollment</ENROLLMENTS_VERIFIER_JDBC_DATABASE_PASSWORD>
                 <!-- test connection-->
-                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_URL>jdbc:postgresql://localhost:5432/enrollment_test</ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_URL>
-                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_USERNAME>enrollment</ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_USERNAME>
-                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_PASSWORD>enrollment</ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_PASSWORD>
+                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_URL>jdbc:postgresql://localhost:5432/enrollment_test
+                </ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_URL>
+                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_USERNAME>enrollment
+                </ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_USERNAME>
+                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_PASSWORD>enrollment
+                </ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_PASSWORD>
             </properties>
         </profile>
 
