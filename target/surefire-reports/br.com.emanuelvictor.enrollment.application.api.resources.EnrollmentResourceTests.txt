@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: br.com.emanuelvictor.enrollment.application.api.resources.EnrollmentResourceTests
--------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.424 s - in br.com.emanuelvictor.enrollment.application.api.resources.EnrollmentResourceTests
