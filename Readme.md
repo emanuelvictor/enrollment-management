@@ -30,8 +30,8 @@ Este projeto contém uma aplicação que gerencia matrículas de Alunos á Class
 
 ## Execução e testes 🚀
 
-1) Execute o comando ``mvn clean package && java -jar target/enrollments-0.0.1-SNAPSHOT.jar`` na raíz do projeto.
-2) A aplicação será iniciada na porta **8080**, o resultado dos testes estarão em *./target/jacoco/site/index.html*
+1) Execute o comando ``mvn clean package && java -jar target/enrollments-0.1.war`` na raíz do projeto.
+2) A aplicação será iniciada na porta **8080**, o resultado dos testes estarão em *./target/site/jacoco/index.html*
 
 
 <h4 align='end'> 
