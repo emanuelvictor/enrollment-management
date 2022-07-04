@@ -25,7 +25,7 @@ Este projeto contém uma aplicação que gerencia matrículas de Alunos á Class
 2) Crie um usuário e uma base de dados, ambos com o nome de "**enrollment**";
     - Se preferir, utilize outros nomes, mas altere os parâmetros em [application-dev.yml](https://github.com/emanuelvictor/enrollment-management/blob/main/src/main/resources/config/application-dev.yml).
 3) Crie uma base de dados chamada "**enrollment_test**". Essa base será utilizada durante a execução dos testes automatizados;
-    - Se preferir, utilize outros nomes, mas altere os parâmetros em [application-test.yml](https://github.com/emanuelvictor/enrollment-management/blob/main/src/test/resources/config/application-test.yml).
+    - Se preferir, utilize outros nomes, mas altere os parâmetros em [application-dev.yml](https://github.com/emanuelvictor/enrollment-management/blob/main/src/test/resources/config/application-dev.yml).
 4) Depois da base configurada, rode o script sql [20220407142600__FIRST_DDL.sql](https://github.com/emanuelvictor/enrollment-management/tree/main/src/main/resources/db/migration/20220407142600__FIRST_DDL.sql).
 
 ## Execução e testes 🚀
