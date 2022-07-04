@@ -27,6 +27,8 @@
         <commons-io.version>2.11.0</commons-io.version>
 
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <wiremock.version>2.27.2</wiremock.version>
+        <brazilian-document-validator.version>1.8</brazilian-document-validator.version>
     </properties>
     <dependencies>
 
@@ -65,15 +67,20 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>io.github.emanuelvictor</groupId>
             <artifactId>brazilian-document-validator</artifactId>
-            <version>1.8</version>
+            <version>${brazilian-document-validator.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock</artifactId>
-            <version>2.27.2</version>
+            <version>${wiremock.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -95,7 +102,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
         </dependency>
-
 
     </dependencies>
 
