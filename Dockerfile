@@ -1,53 +1,57 @@
-# syntax=docker/dockerfile:1
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-# Add the PostgreSQL PGP key to verify their Debian packages.
-# It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
-# RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
+# -----------------------
+# POSTGRESQL 13 INSTALATION and CONFIGURATION
+# -----------------------
+#mainteiner
+MAINTAINER Emanuel Victor <emanuel.info@gmail.com>
 
-# Add PostgreSQL's repository. It contains the most recent stable release
-#  of PostgreSQL.
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+#config tzdata configurations
+RUN apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="America/Sao_Paulo" apt-get install -y tzdata
 
-# Install ``python-software-properties``, ``software-properties-common`` and PostgreSQL 9.3
-#  There are some warnings (in red) that show up during the build. You can hide
-#  them by prefixing each apt-get statement with DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y python-software-properties software-properties-common postgresql-9.5 postgresql-client-9.5 postgresql-contrib-9.5
+#install postgres dependencies
+RUN apt-get update && apt install -y curl gpg gnupg2 software-properties-common apt-transport-https lsb-release ca-certificates
 
-# Note: The official Debian and Ubuntu images automatically ``apt-get clean``
-# after each ``apt-get``
+#handler certificates of postgres
+RUN curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
 
-# Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
+# Add PostgreSQL's repository. It contains the most recent stable release of PostgreSQL.
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list'
+
+#install postgresql-13
+RUN apt-get update && apt install -y postgresql-13 postgresql-client-13
+
+# Swithing postgres user
 USER postgres
 
-# Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
-# then create a database `docker` owned by the ``docker`` role.
-# Note: here we use ``&&\`` to run commands one after the other - the ``\``
-#       allows the RUN command to span multiple lines.
+#creating enrollment role and enrollment and enrollment_test databases
 RUN    /etc/init.d/postgresql start &&\
     psql --command "CREATE USER enrollment WITH SUPERUSER PASSWORD 'enrollment';" &&\
     createdb -O enrollment enrollment  &&\
-    createdb -O enrollment_test enrollment_test
+    createdb -O enrollment enrollment_test
 
-# Adjust PostgreSQL configuration so that remote connections to the
-# database are possible.
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
+## Adjust PostgreSQL configuration so that remote connections to the database are possible.
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/13/main/pg_hba.conf
 
-# And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
+## And add ``listen_addresses`` to ``/etc/postgresql/13/main/postgresql.conf``
+RUN echo "listen_addresses='*'" >> /etc/postgresql/13/main/postgresql.conf
 
-# Expose the PostgreSQL port
-EXPOSE 5432
-
-# Add VOLUMEs to allow backup of config, logs and databases
+## Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 # Set the default command to run when starting the container
-CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/13/bin/postgres", "-D", "/var/lib/postgresql/13/main", "-c", "config_file=/etc/postgresql/13/main/postgresql.conf"]
 
-FROM openjdk:8-jre
-RUN mkdir app
+# -----------------------
+# JAVA APPLICATION
+# -----------------------
+FROM openjdk:11-jre
+RUN mkdir /app
 ARG JAR_FILE
 ADD /target/${JAR_FILE} /app/enrollment.jar
 WORKDIR /app
-ENTRYPOINT java -jar enrollment.jar
+# Set the default command to run when starting the container
+ENTRYPOINT ["/etc/init.d/postgresql", "start", "java","-jar", "enrollment.jar"]
+
+## Expose the PostgreSQL port
+EXPOSE 5432

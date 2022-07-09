@@ -159,6 +159,28 @@
                     </rules>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                    <repository>emanuelvictor/enrollments</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -171,17 +193,13 @@
             <properties>
                 <active.profile>dev</active.profile>
                 <!-- production connection-->
-                <ENROLLMENTS_VERIFIER_JDBC_DATABASE_URL>jdbc:postgresql://localhost:5432/enrollment
-                </ENROLLMENTS_VERIFIER_JDBC_DATABASE_URL>
+                <ENROLLMENTS_VERIFIER_JDBC_DATABASE_URL>jdbc:postgresql://127.0.0.1:5432/enrollment</ENROLLMENTS_VERIFIER_JDBC_DATABASE_URL>
                 <ENROLLMENTS_VERIFIER_JDBC_DATABASE_USERNAME>enrollment</ENROLLMENTS_VERIFIER_JDBC_DATABASE_USERNAME>
                 <ENROLLMENTS_VERIFIER_JDBC_DATABASE_PASSWORD>enrollment</ENROLLMENTS_VERIFIER_JDBC_DATABASE_PASSWORD>
                 <!-- test connection-->
-                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_URL>jdbc:postgresql://localhost:5432/enrollment_test
-                </ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_URL>
-                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_USERNAME>enrollment
-                </ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_USERNAME>
-                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_PASSWORD>enrollment
-                </ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_PASSWORD>
+                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_URL>jdbc:postgresql://127.0.0.1:5432/enrollment_test</ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_URL>
+                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_USERNAME>enrollment</ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_USERNAME>
+                <ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_PASSWORD>enrollment</ENROLLMENTS_VERIFIER_TEST_JDBC_DATABASE_PASSWORD>
             </properties>
         </profile>
 
