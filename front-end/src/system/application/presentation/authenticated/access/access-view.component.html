@@ -1,0 +1,25 @@
+<div layout='row' layout-align='center center' class='nav-menu'>
+
+  <a layout-margin routerLinkActive #rlaUsers='routerLinkActive' [ngClass]="{'menu-active': rlaUsers.isActive}"
+     routerLink='users' *hasPermission="['root', 'users', 'users/get']; operation 'OR'">
+    Usuários
+  </a>
+
+  <a class='ml-25' layout-margin routerLinkActive
+     [ngClass]="{'menu-active': rlaApplications.isActive}"
+     routerLink='applications' #rlaApplications='routerLinkActive'
+     *hasPermission="['root', 'applications', 'applications/get']; operation 'OR'">
+    Aplicativos
+  </a>
+
+  <a class='ml-25' layout-margin routerLinkActive #rlaAccessGroups='routerLinkActive'
+     [ngClass]="{'menu-active': rlaAccessGroups.isActive}" routerLink='groups'
+     *hasPermission="['root', 'groups', 'groups/get']; operation 'OR'">
+    Grupos de Acesso
+  </a>
+
+</div>
+
+<div class='main-content'>
+  <router-outlet></router-outlet>
+</div>

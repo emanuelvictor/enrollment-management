@@ -1,0 +1,64 @@
+<div class='toolbar' layout='row' flex>
+  <div layout='column'>
+    <div class='headline' [innerHTML]='homeView.toolbar.headline'></div>
+    <div class='subhead' [innerHTML]='homeView.toolbar.subhead'></div>
+  </div>
+  <div layout='row' layout-align='end center' flex>
+    <button mat-raised-button type='button' color='accent' routerLink='../'>
+      <mat-icon>arrow_back</mat-icon>
+      <span>Voltar</span>
+    </button>
+    <div [@fadeInOut] *hasPermission="['root', 'users/put/activate']; operation 'OR'">
+      <button *ngIf='!user?.internal'
+              color='primary' class='ml-25'
+              mat-raised-button (click)='updatePassword()'>
+        <mat-icon>vpn_key</mat-icon>
+        <span>Alterar senha</span>
+      </button>
+    </div>
+    <div *hasPermission="['root', 'users/put/activate']; operation 'OR'">
+      <button mat-raised-button type='button' *ngIf='!itsMe'
+              (click)='updateEnabled(user.id)' class='ml-25'
+              [ngClass]="{'activate': !user.enabled, 'inactivate': user.enabled}">
+        <mat-icon>{{ !user.enabled ? 'check' : 'block' }}</mat-icon>
+        <span>{{ !user.enabled ? 'Ativar' : 'Inativar' }}</span>
+      </button>
+    </div>
+    <a color='primary' routerLink='edit'
+       class='ml-25' mat-raised-button type='button'
+       *hasPermission="['root', 'users/put']; operation 'OR'">
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </a>
+  </div>
+</div>
+<mat-card id='default-form'>
+  <div layout='row' layout-sm='column' layout-xs='column'>
+    <div layout='column' flex>
+      <label class='title'>Usuário interno: </label>
+      <label class='text'>{{ user.internal ? 'Sim' : 'Não' }}</label>
+    </div>
+    <horizontal-space></horizontal-space>
+    <div layout='column' flex>
+      <label class='title'>Nome:</label>
+      <label class='text'>{{ user.name }}</label>
+    </div>
+    <horizontal-space></horizontal-space>
+    <div layout='column' flex>
+      <label class='title'>Nome de Usuário:</label>
+      <label class='text' *ngIf='user.username'>{{ user.username }}</label>
+      <label class='text' *ngIf='!user.username'>-</label>
+    </div>
+    <horizontal-space></horizontal-space>
+    <div layout='column' flex>
+      <label class='title'>Ativo:</label>
+      <label class='text'>{{ user.enabled ? 'Sim' : 'Não' }}</label>
+    </div>
+
+  </div>
+  <vertical-space></vertical-space>
+  <div layout='column' *ngIf='user?.group?.id'>
+    <label class='title'>Grupo de Acesso:</label>
+    <label class='text'>{{ user?.group?.name }}</label>
+  </div>
+</mat-card>
