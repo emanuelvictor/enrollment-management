@@ -7,8 +7,7 @@ import {MessageService} from '../../../domain/services/message.service';
 import {TranslateService} from '@ngx-translate/core';
 import {AuthenticationService} from "../../../domain/services/authentication.service";
 import {User} from "../../../domain/entity/user.model";
-import {UserRepository} from "../../../domain/repository/user.repository";
-import {UpdatePasswordDialogComponent} from "./access/users/update-password-dialog.component";
+import {StudentRepository} from "../../../domain/repository/student.repository";
 
 // @ts-ignore
 @Component({
@@ -44,7 +43,7 @@ export class AuthenticatedViewComponent implements OnInit, OnDestroy {
               private activeRoute: ActivatedRoute,
               private messageService: MessageService,
               private loadingService: TdLoadingService,
-              private userRepository: UserRepository,
+              private userRepository: StudentRepository,
               private dialog: MatDialog, private router: Router,
               private authenticationService: AuthenticationService) {
 
@@ -81,17 +80,6 @@ export class AuthenticatedViewComponent implements OnInit, OnDestroy {
    */
   public getAuthenticatedUser() {
     this.user = this.authenticationService.user;
-  }
-
-  /**
-   *
-   */
-  public openDialogChangePassword() {
-    this.dialog.open(UpdatePasswordDialogComponent, {
-      width: '400px',
-      height: 'auto',
-      data: {user: this.user || null}
-    })
   }
 
   /**

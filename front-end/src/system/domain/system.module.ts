@@ -17,7 +17,7 @@ import {PaginationService} from './services/pagination.service';
 import {SystemRoutingModule} from "./system.routing.module";
 import {EmConstrucaoComponent} from "../application/controls/not-found/em-construcao.component";
 import {GroupRepository} from "./repository/group.repository";
-import {UserRepository} from "./repository/user.repository";
+import {StudentRepository} from "./repository/student.repository";
 import {PermissionRepository} from "./repository/permission.repository";
 import {EvDatepicker} from "../application/controls/ev-datepicker/ev-datepicker";
 import {FirstUppercasePipe} from "../application/utils/utils";
@@ -51,30 +51,28 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {DataComponent} from "../application/controls/data/data.component";
 import {PieChartModule} from "@swimlane/ngx-charts";
 import {SystemComponent} from "../application/presentation/system.component";
-import {GroupFormComponent} from "../application/presentation/authenticated/access/groups/insert-group/group-form/group-form.component";
-import {ViewGroupComponent} from "../application/presentation/authenticated/access/groups/view-group/view-group.component";
-import {InsertGroupComponent} from "../application/presentation/authenticated/access/groups/insert-group/insert-group.component";
-import {UpdateGroupComponent} from "../application/presentation/authenticated/access/groups/update-group/update-group.component";
-import {UserViewComponent} from "../application/presentation/authenticated/access/users/user-view.component";
-import {ConsultUsersComponent} from "../application/presentation/authenticated/access/users/consult-users/consult-users.component";
-import {ViewUserComponent} from "../application/presentation/authenticated/access/users/view-user/view-user.component";
-import {InsertUserComponent} from "../application/presentation/authenticated/access/users/insert-user/insert-user.component";
-import {UserFormComponent} from "../application/presentation/authenticated/access/users/insert-user/user-form/user-form.component";
-import {LinkPermissionsComponent} from "../application/presentation/authenticated/access/groups/insert-group/group-form/link-permissions/link-permissions.component";
-import {UpdatePasswordComponent} from "../application/presentation/authenticated/access/users/update-password/update-password.component";
-import {RootFormComponent} from "../application/presentation/authenticated/access/users/insert-user/user-form/root-form/root-form.component";
-import {UpdatePasswordDialogComponent} from "../application/presentation/authenticated/access/users/update-password-dialog.component";
-import {UpdateUserComponent} from "../application/presentation/authenticated/access/users/update-user/update-user.component";
-import {ConsultGroupsComponent} from "../application/presentation/authenticated/access/groups/consult-groups/consult-groups.component";
-import {GroupsViewComponent} from "../application/presentation/authenticated/access/groups/groups-view.component";
-import {AccessViewComponent} from "../application/presentation/authenticated/access/access-view.component";
-import {ApplicationViewComponent} from "../application/presentation/authenticated/access/applications/application-view.component";
-import {ConsultApplicationsComponent} from "../application/presentation/authenticated/access/applications/consult-applications/consult-applications.component";
-import {InsertApplicationComponent} from "../application/presentation/authenticated/access/applications/insert-application/insert-application.component";
-import {UpdateApplicationComponent} from "../application/presentation/authenticated/access/applications/update-application/update-application.component";
-import {ViewApplicationComponent} from "../application/presentation/authenticated/access/applications/view-application/view-application.component";
+import {GroupFormComponent} from "../application/presentation/authenticated/enrollments/groups/insert-group/group-form/group-form.component";
+import {ViewGroupComponent} from "../application/presentation/authenticated/enrollments/groups/view-group/view-group.component";
+import {InsertGroupComponent} from "../application/presentation/authenticated/enrollments/groups/insert-group/insert-group.component";
+import {UpdateGroupComponent} from "../application/presentation/authenticated/enrollments/groups/update-group/update-group.component";
+import {UserViewComponent} from "../application/presentation/authenticated/enrollments/students/user-view.component";
+import {ConsultStudentsComponent} from "../application/presentation/authenticated/enrollments/students/consult-students/consult-students.component";
+import {ViewUserComponent} from "../application/presentation/authenticated/enrollments/students/view-user/view-user.component";
+import {InsertUserComponent} from "../application/presentation/authenticated/enrollments/students/insert-user/insert-user.component";
+import {UserFormComponent} from "../application/presentation/authenticated/enrollments/students/insert-user/user-form/user-form.component";
+import {LinkPermissionsComponent} from "../application/presentation/authenticated/enrollments/groups/insert-group/group-form/link-permissions/link-permissions.component";
+import {RootFormComponent} from "../application/presentation/authenticated/enrollments/students/insert-user/user-form/root-form/root-form.component";
+import {UpdateUserComponent} from "../application/presentation/authenticated/enrollments/students/update-user/update-user.component";
+import {ConsultGroupsComponent} from "../application/presentation/authenticated/enrollments/groups/consult-groups/consult-groups.component";
+import {GroupsViewComponent} from "../application/presentation/authenticated/enrollments/groups/groups-view.component";
+import {EnrollmentsViewComponent} from "../application/presentation/authenticated/enrollments/enrollments-view.component";
+import {ApplicationViewComponent} from "../application/presentation/authenticated/enrollments/applications/application-view.component";
+import {ConsultApplicationsComponent} from "../application/presentation/authenticated/enrollments/applications/consult-applications/consult-applications.component";
+import {InsertApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/insert-application/insert-application.component";
+import {UpdateApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/update-application/update-application.component";
+import {ViewApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/view-application/view-application.component";
 import {ApplicationRepository} from "./repository/application.repository";
-import {ApplicationFormComponent} from "../application/presentation/authenticated/access/applications/insert-application/application-form/application-form.component";
+import {ApplicationFormComponent} from "../application/presentation/authenticated/enrollments/applications/insert-application/application-form/application-form.component";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -127,7 +125,7 @@ export function customTranslateLoader(http: HttpClient) {
     EntityFormComponent,
 
     // Configuracoes
-    AccessViewComponent,
+    EnrollmentsViewComponent,
 
     // Grupos de acesso
     GroupFormComponent,
@@ -139,15 +137,13 @@ export function customTranslateLoader(http: HttpClient) {
 
     // User
     UserViewComponent,
-    ConsultUsersComponent,
+    ConsultStudentsComponent,
     ViewUserComponent,
     InsertUserComponent,
     UserFormComponent,
     UpdateUserComponent,
-    UpdatePasswordDialogComponent,
     RootFormComponent,
     LinkPermissionsComponent,
-    UpdatePasswordComponent,
 
     // Application
     ApplicationViewComponent,
@@ -189,13 +185,12 @@ export function customTranslateLoader(http: HttpClient) {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [NoSubmitDirective],
   entryComponents: [
-    DeleteDialogComponent,
-    UpdatePasswordComponent,
-    UpdatePasswordDialogComponent,],
+    DeleteDialogComponent
+    ],
   providers: [
 
     // Repositories
-    UserRepository,
+    StudentRepository,
     PermissionRepository,
     ApplicationRepository,
     GroupRepository,
@@ -207,7 +202,7 @@ export function customTranslateLoader(http: HttpClient) {
     AuthenticationService,
 
     UserViewComponent,
-    AccessViewComponent,
+    EnrollmentsViewComponent,
 
     DialogService,
     MessageService,

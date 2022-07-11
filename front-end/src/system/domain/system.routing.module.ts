@@ -5,46 +5,40 @@ import {InsertPasswordComponent} from '../application/presentation/manage-passwo
 import {RecoveryPasswordComponent} from '../application/presentation/manage-password/recovery-password.component';
 import {AuthenticatedViewComponent} from "../application/presentation/authenticated/authenticated-view.component";
 import {AuthenticationService} from "./services/authentication.service";
-import {ConsultUsersComponent} from "../application/presentation/authenticated/access/users/consult-users/consult-users.component";
-import {UserViewComponent} from "../application/presentation/authenticated/access/users/user-view.component";
-import {InsertUserComponent} from "../application/presentation/authenticated/access/users/insert-user/insert-user.component";
-import {UpdateUserComponent} from "../application/presentation/authenticated/access/users/update-user/update-user.component";
-import {AccessViewComponent} from "../application/presentation/authenticated/access/access-view.component";
-import {ViewUserComponent} from "../application/presentation/authenticated/access/users/view-user/view-user.component";
-import {GroupsViewComponent} from "../application/presentation/authenticated/access/groups/groups-view.component";
-import {InsertGroupComponent} from "../application/presentation/authenticated/access/groups/insert-group/insert-group.component";
-import {UpdateGroupComponent} from "../application/presentation/authenticated/access/groups/update-group/update-group.component";
-import {ViewGroupComponent} from "../application/presentation/authenticated/access/groups/view-group/view-group.component";
-import {ConsultGroupsComponent} from "../application/presentation/authenticated/access/groups/consult-groups/consult-groups.component";
-import {ConsultApplicationsComponent} from "../application/presentation/authenticated/access/applications/consult-applications/consult-applications.component";
-import {InsertApplicationComponent} from "../application/presentation/authenticated/access/applications/insert-application/insert-application.component";
-import {UpdateApplicationComponent} from "../application/presentation/authenticated/access/applications/update-application/update-application.component";
-import {ViewApplicationComponent} from "../application/presentation/authenticated/access/applications/view-application/view-application.component";
-import {ApplicationViewComponent} from "../application/presentation/authenticated/access/applications/application-view.component";
+import {ConsultStudentsComponent} from "../application/presentation/authenticated/enrollments/students/consult-students/consult-students.component";
+import {UserViewComponent} from "../application/presentation/authenticated/enrollments/students/user-view.component";
+import {InsertUserComponent} from "../application/presentation/authenticated/enrollments/students/insert-user/insert-user.component";
+import {UpdateUserComponent} from "../application/presentation/authenticated/enrollments/students/update-user/update-user.component";
+import {EnrollmentsViewComponent} from "../application/presentation/authenticated/enrollments/enrollments-view.component";
+import {ViewUserComponent} from "../application/presentation/authenticated/enrollments/students/view-user/view-user.component";
+import {GroupsViewComponent} from "../application/presentation/authenticated/enrollments/groups/groups-view.component";
+import {InsertGroupComponent} from "../application/presentation/authenticated/enrollments/groups/insert-group/insert-group.component";
+import {UpdateGroupComponent} from "../application/presentation/authenticated/enrollments/groups/update-group/update-group.component";
+import {ViewGroupComponent} from "../application/presentation/authenticated/enrollments/groups/view-group/view-group.component";
+import {ConsultGroupsComponent} from "../application/presentation/authenticated/enrollments/groups/consult-groups/consult-groups.component";
+import {ConsultApplicationsComponent} from "../application/presentation/authenticated/enrollments/applications/consult-applications/consult-applications.component";
+import {InsertApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/insert-application/insert-application.component";
+import {UpdateApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/update-application/update-application.component";
+import {ViewApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/view-application/view-application.component";
+import {ApplicationViewComponent} from "../application/presentation/authenticated/enrollments/applications/application-view.component";
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'recuperar-senha', component: RecoveryPasswordComponent},
-  {path: 'cadastrar-senha/:codigo', component: InsertPasswordComponent},
   {
-    path: '', component: AuthenticatedViewComponent, canActivate: [AuthenticationService],
+    path: '', component: AuthenticatedViewComponent,
     children: [
       {
-        path: '', redirectTo: 'access', pathMatch: 'full',
-      },
-      {
-        path: 'access',
-        component: AccessViewComponent,
+        path: '',
+        component: EnrollmentsViewComponent,
         children: [
           {
-            path: '', redirectTo: 'users', pathMatch: 'full',
+            path: '', redirectTo: 'students', pathMatch: 'full',
           },
           {
-            path: 'users', component: UserViewComponent,
+            path: 'students', component: UserViewComponent,
             // canActivate: [ApplicationViewComponent],
             children: [
               {path: 'get', redirectTo: '', pathMatch: 'full'},
-              {path: '', component: ConsultUsersComponent},
+              {path: '', component: ConsultStudentsComponent},
               {path: 'insert', component: InsertUserComponent},
               {path: 'edit/:id', component: UpdateUserComponent},
               {path: ':id/edit', component: UpdateUserComponent},
@@ -52,7 +46,7 @@ const routes: Routes = [
             ]
           },
           {
-            path: 'applications', component: ApplicationViewComponent,
+            path: 'class', component: ApplicationViewComponent,
             // canActivate: [ApplicationViewComponent],
             children: [
               {path: 'get', redirectTo: '', pathMatch: 'full'},

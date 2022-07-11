@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticatedViewComponent} from '../../../authenticated-view.component';
 import {MessageService} from '../../../../../../domain/services/message.service';
-import {UserRepository} from "../../../../../../domain/repository/user.repository";
+import {StudentRepository} from "../../../../../../domain/repository/student.repository";
 import {viewAnimation} from "../../../../../utils/utils";
-import {UpdatePasswordComponent} from "../update-password/update-password.component";
 import {MatDialog} from "@angular/material";
 
 // @ts-ignore
@@ -42,9 +41,9 @@ export class ViewUserComponent implements OnInit {
               public activatedRoute: ActivatedRoute,
               private messageService: MessageService,
               public homeView: AuthenticatedViewComponent,
-              private userRepository: UserRepository) {
+              private userRepository: StudentRepository) {
     this.user.id = +this.activatedRoute.snapshot.params.id || null;
-    homeView.toolbar.subhead = 'Usuário / Detalhes'
+    homeView.toolbar.subhead = 'Estudante / Detalhes'
   }
 
   /**
@@ -54,7 +53,7 @@ export class ViewUserComponent implements OnInit {
     if (this.user && this.user.id) {
       this.findById();
       this.itsMe = this.homeView.itsMe(this.user)
-    } else this.router.navigate(["access/users"])
+    } else this.router.navigate(["enrollments/users"])
   }
 
   /**
@@ -74,16 +73,5 @@ export class ViewUserComponent implements OnInit {
         this.user.enabled = enabled;
         this.messageService.toastSuccess(this.user.enabled ? 'Ativado com sucesso' : 'Inativado com sucesso')
       })
-  }
-
-  /**
-   *
-   */
-  public updatePassword() {
-    this.dialog.open(UpdatePasswordComponent, {
-      width: '400px',
-      height: 'auto',
-      data: {user: this.user || null}
-    })
   }
 }

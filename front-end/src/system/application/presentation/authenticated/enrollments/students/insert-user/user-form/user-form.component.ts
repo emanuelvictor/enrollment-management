@@ -5,7 +5,7 @@ import {AuthenticatedViewComponent} from '../../../../authenticated-view.compone
 import {MessageService} from '../../../../../../../domain/services/message.service';
 import {debounce} from "../../../../../../utils/debounce";
 import {FormBuilder, FormControl, Validators} from "@angular/forms"
-import {UserRepository} from "../../../../../../../domain/repository/user.repository";
+import {StudentRepository} from "../../../../../../../domain/repository/student.repository";
 import {CrudViewComponent} from "../../../../../../controls/crud/crud-view.component";
 import {User} from "../../../../../../../domain/entity/user.model";
 import 'rxjs/add/operator/debounceTime';
@@ -57,7 +57,7 @@ export class UserFormComponent extends CrudViewComponent implements OnInit {
               public snackBar: MatSnackBar,
               public activatedRoute: ActivatedRoute,
               private messageService: MessageService,
-              private userRepository: UserRepository,
+              private userRepository: StudentRepository,
               private homeView: AuthenticatedViewComponent,
               @Inject(ElementRef) public element: ElementRef,
               public fb: FormBuilder, public renderer: Renderer,

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticatedViewComponent} from '../../../authenticated-view.component';
 import {MessageService} from '../../../../../../domain/services/message.service';
-import {UserRepository} from "../../../../../../domain/repository/user.repository";
+import {StudentRepository} from "../../../../../../domain/repository/student.repository";
 import {User} from "../../../../../../domain/entity/user.model";
 
 // @ts-ignore
@@ -40,7 +40,7 @@ export class InsertUserComponent implements OnInit {
               private homeView: AuthenticatedViewComponent,
               private activatedRoute: ActivatedRoute,
               private messageService: MessageService,
-              private userRepository: UserRepository,) {
+              private userRepository: StudentRepository) {
 
     if (!this.activatedRoute.snapshot.params.id) {
       homeView.toolbar.subhead = 'Usuário / Adicionar';

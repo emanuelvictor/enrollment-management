@@ -22,7 +22,7 @@ export class ApplicationViewComponent extends DefaultCanActivate {
 
     this.fallbackRoute = 'access/groups';
 
-    this.permissions = ['root', 'users', 'users/get']
+    this.permissions = ['root', 'students', 'students/get']
 
   }
 }

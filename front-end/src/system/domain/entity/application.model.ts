@@ -12,6 +12,11 @@ export class Application extends People implements ClientDetails {
   /**
    *
    */
+  public password: string;
+  
+  /**
+   *
+   */
   public clientSecret: string;
 
   /**

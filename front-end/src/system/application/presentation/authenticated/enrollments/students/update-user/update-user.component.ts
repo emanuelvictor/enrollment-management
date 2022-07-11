@@ -4,7 +4,7 @@ import {AuthenticatedViewComponent} from '../../../authenticated-view.component'
 import {MessageService} from '../../../../../../domain/services/message.service';
 import {debounce} from "../../../../../utils/debounce";
 import {FormGroup} from "@angular/forms"
-import {UserRepository} from "../../../../../../domain/repository/user.repository";
+import {StudentRepository} from "../../../../../../domain/repository/student.repository";
 
 // @ts-ignore
 @Component({
@@ -46,7 +46,7 @@ export class UpdateUserComponent implements OnInit {
               private homeView: AuthenticatedViewComponent,
               private activatedRoute: ActivatedRoute,
               private messageService: MessageService,
-              private userRepository: UserRepository) {
+              private userRepository: StudentRepository) {
 
     homeView.toolbar.subhead = 'Usuário / Editar';
     this.user.id = +this.activatedRoute.snapshot.params.id;
