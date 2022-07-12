@@ -2,16 +2,12 @@
            [deletavel]='false'
            [columns]="columns"
            [dataSource]="dataSource"
-           [headline]="'Configurações'"
-           [subhead]="'Usuários'"
+           [headline]="'Estudante'"
+           [subhead]="'Estudante / Consultar'"
            (list)='listByFilters($event)'
            [totalElements]="totalElements"
            [pageSize]="pageSize"
            [pageIndex]="pageIndex"
-           [rolesToAdd]="['root', 'users', 'users/post']"
-           [rolesToView]="['root', 'users', 'users/get']"
-           [rolesToEdit]="['root', 'users', 'users/put']"
-           [rolesToDelete]="['root', 'users', 'users/delete']"
            (delete)="openDeleteDialog($event)"
            [displayedColumns]="displayedColumns">
 </list-page>

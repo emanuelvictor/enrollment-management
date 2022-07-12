@@ -16,7 +16,7 @@ import {getPaginatorIntl} from './services/portuguese-paginator-intl';
 import {PaginationService} from './services/pagination.service';
 import {SystemRoutingModule} from "./system.routing.module";
 import {EmConstrucaoComponent} from "../application/controls/not-found/em-construcao.component";
-import {GroupRepository} from "./repository/group.repository";
+import {ClassRepository} from "./repository/class.repository";
 import {StudentRepository} from "./repository/student.repository";
 import {PermissionRepository} from "./repository/permission.repository";
 import {EvDatepicker} from "../application/controls/ev-datepicker/ev-datepicker";
@@ -51,20 +51,18 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {DataComponent} from "../application/controls/data/data.component";
 import {PieChartModule} from "@swimlane/ngx-charts";
 import {SystemComponent} from "../application/presentation/system.component";
-import {GroupFormComponent} from "../application/presentation/authenticated/enrollments/groups/insert-group/group-form/group-form.component";
-import {ViewGroupComponent} from "../application/presentation/authenticated/enrollments/groups/view-group/view-group.component";
-import {InsertGroupComponent} from "../application/presentation/authenticated/enrollments/groups/insert-group/insert-group.component";
-import {UpdateGroupComponent} from "../application/presentation/authenticated/enrollments/groups/update-group/update-group.component";
-import {UserViewComponent} from "../application/presentation/authenticated/enrollments/students/user-view.component";
+import {ClassFormComponent} from "../application/presentation/authenticated/enrollments/classes/insert-class/class-form/class-form.component";
+import {ViewClassComponent} from "../application/presentation/authenticated/enrollments/classes/view-class/view-class.component";
+import {InsertClassComponent} from "../application/presentation/authenticated/enrollments/classes/insert-class/insert-class.component";
+import {UpdateClassComponent} from "../application/presentation/authenticated/enrollments/classes/update-class/update-class.component";
+import {StudentViewComponent} from "../application/presentation/authenticated/enrollments/students/student-view.component";
 import {ConsultStudentsComponent} from "../application/presentation/authenticated/enrollments/students/consult-students/consult-students.component";
-import {ViewUserComponent} from "../application/presentation/authenticated/enrollments/students/view-user/view-user.component";
-import {InsertUserComponent} from "../application/presentation/authenticated/enrollments/students/insert-user/insert-user.component";
-import {UserFormComponent} from "../application/presentation/authenticated/enrollments/students/insert-user/user-form/user-form.component";
-import {LinkPermissionsComponent} from "../application/presentation/authenticated/enrollments/groups/insert-group/group-form/link-permissions/link-permissions.component";
-import {RootFormComponent} from "../application/presentation/authenticated/enrollments/students/insert-user/user-form/root-form/root-form.component";
-import {UpdateUserComponent} from "../application/presentation/authenticated/enrollments/students/update-user/update-user.component";
-import {ConsultGroupsComponent} from "../application/presentation/authenticated/enrollments/groups/consult-groups/consult-groups.component";
-import {GroupsViewComponent} from "../application/presentation/authenticated/enrollments/groups/groups-view.component";
+import {ViewStudentComponent} from "../application/presentation/authenticated/enrollments/students/view-student/view-student.component";
+import {InsertStudentComponent} from "../application/presentation/authenticated/enrollments/students/insert-student/insert-student.component";
+import {StudentFormComponent} from "../application/presentation/authenticated/enrollments/students/insert-student/student-form/student-form.component";
+import {UpdateStudentComponent} from "../application/presentation/authenticated/enrollments/students/update-student/update-student.component";
+import {ConsultClassesComponent} from "../application/presentation/authenticated/enrollments/classes/consult-classes/consult-classes.component";
+import {ClassesViewComponent} from "../application/presentation/authenticated/enrollments/classes/classes-view.component";
 import {EnrollmentsViewComponent} from "../application/presentation/authenticated/enrollments/enrollments-view.component";
 import {ApplicationViewComponent} from "../application/presentation/authenticated/enrollments/applications/application-view.component";
 import {ConsultApplicationsComponent} from "../application/presentation/authenticated/enrollments/applications/consult-applications/consult-applications.component";
@@ -128,22 +126,20 @@ export function customTranslateLoader(http: HttpClient) {
     EnrollmentsViewComponent,
 
     // Grupos de acesso
-    GroupFormComponent,
-    UpdateGroupComponent,
-    InsertGroupComponent,
-    ConsultGroupsComponent,
-    ViewGroupComponent,
-    GroupsViewComponent,
+    ClassFormComponent,
+    UpdateClassComponent,
+    InsertClassComponent,
+    ConsultClassesComponent,
+    ViewClassComponent,
+    ClassesViewComponent,
 
     // User
-    UserViewComponent,
+    StudentViewComponent,
     ConsultStudentsComponent,
-    ViewUserComponent,
-    InsertUserComponent,
-    UserFormComponent,
-    UpdateUserComponent,
-    RootFormComponent,
-    LinkPermissionsComponent,
+    ViewStudentComponent,
+    InsertStudentComponent,
+    StudentFormComponent,
+    UpdateStudentComponent,
 
     // Application
     ApplicationViewComponent,
@@ -193,7 +189,7 @@ export function customTranslateLoader(http: HttpClient) {
     StudentRepository,
     PermissionRepository,
     ApplicationRepository,
-    GroupRepository,
+    ClassRepository,
 
     // Services
     Describer,
@@ -201,7 +197,7 @@ export function customTranslateLoader(http: HttpClient) {
     PaginationService,
     AuthenticationService,
 
-    UserViewComponent,
+    StudentViewComponent,
     EnrollmentsViewComponent,
 
     DialogService,

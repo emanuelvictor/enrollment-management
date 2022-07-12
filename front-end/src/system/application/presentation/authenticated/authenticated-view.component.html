@@ -18,10 +18,9 @@
       <div flex layout='row' layout-align='center center' class="sistema-header">
         <a style='margin-top: 8px; color: #4C4C4C'
            routerLinkActive mat-button hide-xs #rlaAccess='routerLinkActive'
-           [ngClass]="{'menu-active': rlaAccess.isActive}" [routerLink]="'/access'"
-           *hasPermission="['root', 'users', 'users/get', 'groups', 'groups/get']; operation 'OR'">
+           [ngClass]="{'menu-active': rlaAccess.isActive}" [routerLink]="'/enrollments'">
           <mat-icon>tune</mat-icon>
-          Configurações
+          Matrículas
         </a>
       </div>
     </div>
@@ -39,11 +38,6 @@
     </div>
 
     <mat-menu #menu='matMenu'>
-      <button (click)='openDialogChangePassword()'
-              *ngIf='!user?.internal' mat-menu-item
-              color='primary' style='color: #4C4C4C'>
-        <span>Alterar senha</span>
-      </button>
       <button mat-menu-item (click)='logout()' color='primary' style='color: #4C4C4C'>
         <mat-icon>power_settings_new</mat-icon>
         <span>Sair</span>
@@ -57,17 +51,6 @@
   <mat-sidenav #sidenav mode='over' [opened]='false'>
 
     <div layout='row' class='menu-top' *ngIf='user' flex>
-
-      <div layout='column' (click)='openDialogChangePassword()'
-           matTooltip='Alterar senha' [style.position]="'relative'">
-
-        <button mat-icon-button class='btn-primary'>
-          {{ user?.name  ? (user?.name | userInitials) : user?.username}}
-        </button>
-        <mat-icon matSuffix class="change-password">settings</mat-icon>
-
-      </div>
-      <horizontal-space [horizontalMargin]="5"></horizontal-space>
       <div layout='column' style="margin-left: 10px;">
         <h3 *ngIf='user?.name'>{{ user?.name }}</h3>
         <label *ngIf="user?.username?.length <= 24">{{ user?.username }}</label>
@@ -79,13 +62,12 @@
 
     <mat-nav-list class='pad-none' *ngIf="user" flex>
       <mat-list class='pad-none'>
-        <mat-list-item #rlaAccess='routerLinkActive' [routerLink]="'/access'"
-                       class='menu-routers' (click)='sidenav.close()' routerLinkActive flex
+        <mat-list-item #rlaAccess='routerLinkActive' [routerLink]="'/enrollments'"
                        [ngClass]="{'menu-active': rlaAccess.isActive}" mat-icon-button
-                       *hasPermission="['root', 'users', 'users/get', 'groups', 'groups/get']; operation 'OR'">
+                       class='menu-routers' (click)='sidenav.close()' routerLinkActive flex>
           <div layout='row' class="menu-item">
             <mat-icon>tune</mat-icon>
-            <h3>Configurações</h3>
+            <h3>Matrículas</h3>
           </div>
         </mat-list-item>
 

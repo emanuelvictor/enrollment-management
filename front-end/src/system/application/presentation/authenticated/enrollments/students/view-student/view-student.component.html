@@ -1,0 +1,44 @@
+<div class='toolbar' layout='row' flex>
+  <div layout='column'>
+    <div class='headline' [innerHTML]="'Estudante'"></div>
+    <div class='subhead' [innerHTML]="'Estudante / Visualizar'"></div>
+  </div>
+  <div layout='row' layout-align='end center' flex>
+    <button mat-raised-button type='button' color='accent' routerLink='../'>
+      <mat-icon>arrow_back</mat-icon>
+      <span>Voltar</span>
+    </button>
+    <div>
+      <button mat-raised-button type='button' color='warn'
+              (click)='updateEnabled(user.id)' class='ml-25'
+              [ngClass]="{'activate': !user.deleted, 'inactivate': user.deleted}">
+        <mat-icon>{{ user.deleted ? 'check' : 'block' }}</mat-icon>
+        <span>{{ user.deleted ? 'Restaurar' : 'Excluir' }}</span>
+      </button>
+
+    </div>
+    <a color='primary' routerLink='edit'
+       class='ml-25' mat-raised-button type='button'>
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </a>
+  </div>
+</div>
+<mat-card id='default-form'>
+  <div layout='row' layout-sm='column' layout-xs='column'>
+    <div layout='column' flex>
+      <label class='title'>Nome:</label>
+      <label class='text'>{{ user.name }}</label>
+    </div>
+    <horizontal-space></horizontal-space>
+    <div layout='column' flex>
+      <label class='title'>E-mail:</label>
+      <label class='text' *ngIf='user.email'>{{ user.email }}</label>
+    </div>
+    <horizontal-space></horizontal-space>
+    <div layout='column' flex>
+      <label class='title'>CPF:</label>
+      <label class='text'>{{ user.document }}</label>
+    </div>
+  </div>
+</mat-card>

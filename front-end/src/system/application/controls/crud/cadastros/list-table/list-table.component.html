@@ -28,9 +28,9 @@
   <div layout="row" flex class="advanced-filters" (keyup.esc)="clearFilters()">
     <div layout="row" flex="85">
       <mat-form-field>
-        <mat-label>Ativo</mat-label>
-        <mat-select [(ngModel)]="filters.ativoFilter"
-                    disableOptionCentering="true" name="ativo"
+        <mat-label>Excluído</mat-label>
+        <mat-select [(ngModel)]="filters.deletedFilter"
+                    disableOptionCentering="true" name="deleted"
                     (ngModelChange)="listByFilters(true)">
           <mat-option [value]="''">Ambos</mat-option>
           <mat-option *ngFor="let status of status" [value]="status.id">
@@ -59,9 +59,9 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef='ativo'>
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Ativo</mat-header-cell>
-      <mat-cell *matCellDef="let data"><a [routerLink]="[data.id]">{{ data.ativo ? 'Sim' : 'Não' }}</a>
+    <ng-container matColumnDef='deleted'>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Excluído</mat-header-cell>
+      <mat-cell *matCellDef="let data"><a [routerLink]="[data.id]">{{ data.deleted ? 'Sim' : 'Não' }}</a>
       </mat-cell>
     </ng-container>
 

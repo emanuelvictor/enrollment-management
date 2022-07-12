@@ -40,14 +40,11 @@ export class ListPageComponent extends CrudViewComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) public paginator: MatPaginator; // Bind com o objeto paginator
   @ViewChild(MatSort, {static: true}) sort: MatSort; // Bind com objeto sort
 
-  public filters: any = {defaultFilter: '', ativoFilter: true}; // Estado inicial dos filtros
+  public filters: any = {defaultFilter: '', deletedFilter: false}; // Estado inicial dos filtros
 
   public debounce = debounce;
   public listByFiltersStatement = () => this.listByFilters(true);
 
-  @Input() editavel: boolean = true;
-  @Input() anexavel: boolean = false;
-  @Input() desativavel: boolean = true;
   @Input() deletavel: boolean = false;
 
   @Input() hasAdvancedFilter: boolean = true;
@@ -81,10 +78,6 @@ export class ListPageComponent extends CrudViewComponent implements OnInit {
    */
   ngOnInit() {
 
-    this.columns = this.columns.filter(a => a.name !== 'ativo');
-
-    this.columns = this.columns.filter(a => a.name !== 'interno');
-
     this.rolesToAdd.push('root');
     this.rolesToEdit.push('root');
     this.rolesToDelete.push('root');
@@ -94,9 +87,6 @@ export class ListPageComponent extends CrudViewComponent implements OnInit {
 
     this.pageSize = 20;
 
-    // Verifica e mantém o estado dos filtros
-    // this.filters = getLocalStorage(this.filters, this.activatedRoute.component['name']);
-
     // Listagem inicial
     this.listByFilters();
   }
@@ -105,10 +95,10 @@ export class ListPageComponent extends CrudViewComponent implements OnInit {
    * Restaura os filtros para o estado inicial
    */
   clearFilters = () => {
-    const {defaultFilter, ativoFilter} = this.filters;
+    const {defaultFilter, deletedFilter} = this.filters;
 
-    if (defaultFilter || ativoFilter !== '') {
-      this.filters = {defaultFilter: '', ativoFilter: ''};
+    if (defaultFilter || deletedFilter !== '') {
+      this.filters = {defaultFilter: '', deletedFilter: false};
       this.listByFilters();
     }
   };
@@ -133,8 +123,8 @@ export class ListPageComponent extends CrudViewComponent implements OnInit {
   }
 
   public existsAdvancedFilters(filters) {
-    const {ativoFilter} = filters;
-    return !!ativoFilter;
+    const {deletedFilter} = filters;
+    return !!deletedFilter;
   }
 
   /**

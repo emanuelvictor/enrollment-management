@@ -7,17 +7,19 @@
 
   <a class='ml-25' layout-margin routerLinkActive
      [ngClass]="{'menu-active': rlaApplications.isActive}"
-     routerLink='applications' #rlaApplications='routerLinkActive'
-     *hasPermission="['root', 'applications', 'applications/get']; operation 'OR'">
-    Aplicativos
+     routerLink='students' #rlaApplications='routerLinkActive'>
+    Estudantes
   </a>
 
   <a class='ml-25' layout-margin routerLinkActive #rlaAccessGroups='routerLinkActive'
-     [ngClass]="{'menu-active': rlaAccessGroups.isActive}" routerLink='groups'
-     *hasPermission="['root', 'groups', 'groups/get']; operation 'OR'">
-    Grupos de Acesso
+     [ngClass]="{'menu-active': rlaAccessGroups.isActive}" routerLink='enrollments'>
+    Matrículas
   </a>
 
+  <a class='ml-25' layout-margin routerLinkActive #rlaAccessGroups='routerLinkActive'
+     [ngClass]="{'menu-active': rlaAccessGroups.isActive}" routerLink='classes'>
+    Turmas
+  </a>
 </div>
 
 <div class='main-content'>

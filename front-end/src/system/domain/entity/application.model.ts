@@ -1,5 +1,4 @@
 import {People} from './people.model';
-import {Group} from "./group.model";
 import {ClientDetails} from "../../infrastructure/authentication/client-details";
 
 export class Application extends People implements ClientDetails {
@@ -13,7 +12,7 @@ export class Application extends People implements ClientDetails {
    *
    */
   public password: string;
-  
+
   /**
    *
    */
@@ -27,7 +26,7 @@ export class Application extends People implements ClientDetails {
   /**
    *
    */
-  public group: Group;
+  public group: any;
 
   /**
    *

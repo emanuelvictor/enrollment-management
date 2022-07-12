@@ -19,7 +19,7 @@ export class ConsultStudentsComponent implements OnInit {
   @ViewChild(ListPageComponent, {static: true})
   private student: User = new User();
 
-  public filters: any = {studentFilter: ''}; // Estado inicial dos filtros
+  public filters: any = {defaultFilter: '', deletedFilter: false}; // Estado inicial dos filtros
 
   public pageable: any = {
     size: 20,
