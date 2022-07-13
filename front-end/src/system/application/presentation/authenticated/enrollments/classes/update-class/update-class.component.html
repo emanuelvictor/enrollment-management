@@ -1,9 +1,9 @@
-<class-form *ngIf='class?.id' [entity]='group' (save)='save($event)'>
+<class-form *ngIf='class?.id' [entity]='class' (save)='save($event)'>
 
   <div class='toolbar' layout='row' flex toolbar>
     <div layout='column'>
-      <div class='headline' [innerHTML]="'Grupo de Acesso / Editar'"></div>
-      <div class='subhead' [innerHTML]="'Grupo de Acesso'"></div>
+      <div class='headline' [innerHTML]="'Turma'"></div>
+      <div class='subhead' [innerHTML]="'Turma / Editar'"></div>
     </div>
     <div layout='row' layout-align='end center' flex>
       <button mat-raised-button type='button' (click)='back()'>

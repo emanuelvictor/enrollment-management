@@ -112,13 +112,7 @@ export class ApplicationFormComponent extends CrudViewComponent implements OnIni
   }
 
   emit(entity: any) {
-
-    if (entity.root)
-      delete entity.group; // Se for root não tem grupo de acesso
-    else if (entity.group)
-      delete entity.group.groupPermissions; // Remove recursividade
-
-    this.save.emit(entity);
+    this.save.emit(entity)
   }
 
   // /**

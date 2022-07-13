@@ -17,8 +17,8 @@
     <div flex hide-sm>
       <div flex layout='row' layout-align='center center' class="sistema-header">
         <a style='margin-top: 8px; color: #4C4C4C'
-           routerLinkActive mat-button hide-xs #rlaAccess='routerLinkActive'
-           [ngClass]="{'menu-active': rlaAccess.isActive}" [routerLink]="'/enrollments'">
+           routerLinkActive mat-button hide-xs #rlaEnrollments='routerLinkActive'
+           [ngClass]="{'menu-active': rlaEnrollments.isActive}" [routerLink]="'/enrollment'">
           <mat-icon>tune</mat-icon>
           Matrículas
         </a>
@@ -62,8 +62,8 @@
 
     <mat-nav-list class='pad-none' *ngIf="user" flex>
       <mat-list class='pad-none'>
-        <mat-list-item #rlaAccess='routerLinkActive' [routerLink]="'/enrollments'"
-                       [ngClass]="{'menu-active': rlaAccess.isActive}" mat-icon-button
+        <mat-list-item #rlaEnrollments='routerLinkActive' [routerLink]="'/enrollment'"
+                       [ngClass]="{'menu-active': rlaEnrollments.isActive}" mat-icon-button
                        class='menu-routers' (click)='sidenav.close()' routerLinkActive flex>
           <div layout='row' class="menu-item">
             <mat-icon>tune</mat-icon>

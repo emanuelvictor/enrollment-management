@@ -43,7 +43,7 @@ export class InsertApplicationComponent implements OnInit {
               private applicationRepository: ApplicationRepository,) {
 
     if (!this.activatedRoute.snapshot.params.id) {
-      homeView.toolbar.subhead = 'Aplicativo / Adicionar';
+      homeView.toolbar.subhead = 'Turma / Adicionar';
     }
 
   }
@@ -73,15 +73,10 @@ export class InsertApplicationComponent implements OnInit {
    * @param application
    */
   public save(application) {
-    if (!application.root && this.isString(application.grupoAcesso)) {
-      this.messageService.toastWarning('Nenhum grupo de acesso válido foi selecionada.')
-      return
-    }
-
     this.applicationRepository.save(application)
       .then(() => {
-        this.router.navigate(['access/applications']);
-        this.messageService.toastSuccess(`Novo aplicativo cadastrado.`, 5)
+        this.router.navigate(['enrollments/classes']);
+        this.messageService.toastSuccess(`Insetrido com sucesso.`, 5)
       })
   }
 

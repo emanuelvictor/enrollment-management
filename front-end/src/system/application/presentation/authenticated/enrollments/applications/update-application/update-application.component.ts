@@ -91,14 +91,9 @@ export class UpdateApplicationComponent implements OnInit {
       return;
     }
 
-    if (this.isString(this.application.group)) {
-      this.messageService.toastWarning('Nenhum grupo de acesso válido foi selecionado.');
-      return;
-    }
-
     this.applicationRepository.save(this.application)
       .then(() => {
-        this.router.navigate(['access/applications']);
+        this.router.navigate(['enrollments/classes']);
         this.messageService.toastSuccess(`Alterado com sucesso`, 5);
       });
   }

@@ -40,9 +40,9 @@ export class UpdateClassComponent implements OnInit {
    */
   back() {
     if (this.activatedRoute.snapshot.routeConfig.path === 'edit/:id')
-      this.router.navigate(['enrollments/classes']);
+      this.router.navigate(['enrollment/classes']);
     else
-      this.router.navigate(['enrollments/classes/' + (+this.activatedRoute.snapshot.params.id)]);
+      this.router.navigate(['enrollment/classes/' + (+this.activatedRoute.snapshot.params.id)]);
   }
 
   /**
@@ -75,7 +75,7 @@ export class UpdateClassComponent implements OnInit {
 
     this.classRepository.save(this.class)
       .then(() => {
-        this.router.navigate(['enrollments/classes']);
+        this.router.navigate(['enrollment/classes']);
         this.messageService.toastSuccess();
       });
   }

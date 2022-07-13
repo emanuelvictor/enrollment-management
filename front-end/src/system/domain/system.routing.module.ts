@@ -27,35 +27,11 @@ const routes: Routes = [
     path: '', component: AuthenticatedViewComponent,
     children: [
       {
-        path: 'enrollments',
+        path: 'enrollment',
         component: EnrollmentsViewComponent,
         children: [
           {
-            path: '', redirectTo: 'students', pathMatch: 'full',
-          },
-          {
-            path: 'students', component: StudentViewComponent,
-            // canActivate: [ApplicationViewComponent],
-            children: [
-              {path: 'get', redirectTo: '', pathMatch: 'full'},
-              {path: '', component: ConsultStudentsComponent},
-              {path: 'insert', component: InsertStudentComponent},
-              {path: 'edit/:id', component: UpdateStudentComponent},
-              {path: ':id/edit', component: UpdateStudentComponent},
-              {path: ':id', component: ViewStudentComponent}
-            ]
-          },
-          {
-            path: 'classes', component: ApplicationViewComponent,
-            // canActivate: [ApplicationViewComponent],
-            children: [
-              {path: 'get', redirectTo: '', pathMatch: 'full'},
-              {path: '', component: ConsultApplicationsComponent},
-              {path: 'insert', component: InsertApplicationComponent},
-              {path: 'edit/:id', component: UpdateApplicationComponent},
-              {path: ':id/edit', component: UpdateApplicationComponent},
-              {path: ':id', component: ViewApplicationComponent}
-            ]
+            path: '', redirectTo: 'enrollments', pathMatch: 'full',
           },
           {
             path: 'enrollments', component: ClassesViewComponent,
@@ -66,6 +42,28 @@ const routes: Routes = [
               {path: 'edit/:id', component: UpdateClassComponent},
               {path: ':id/edit', component: UpdateClassComponent},
               {path: ':id', component: ViewClassComponent}
+            ]
+          },
+          {
+            path: 'classes', component: ClassesViewComponent,
+            children: [
+              {path: 'get', redirectTo: '', pathMatch: 'full'},
+              {path: '', component: ConsultClassesComponent},
+              {path: 'insert', component: InsertClassComponent},
+              {path: 'edit/:id', component: UpdateClassComponent},
+              {path: ':id/edit', component: UpdateClassComponent},
+              {path: ':id', component: ViewClassComponent}
+            ]
+          },
+          {
+            path: 'students', component: StudentViewComponent,
+            children: [
+              {path: 'get', redirectTo: '', pathMatch: 'full'},
+              {path: '', component: ConsultStudentsComponent},
+              {path: 'insert', component: InsertStudentComponent},
+              {path: 'edit/:id', component: UpdateStudentComponent},
+              {path: ':id/edit', component: UpdateStudentComponent},
+              {path: ':id', component: ViewStudentComponent}
             ]
           }
         ]

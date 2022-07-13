@@ -20,9 +20,5 @@ export class EnrollmentsViewComponent extends DefaultCanActivate {
 
     super(authenticationService, router);
 
-    this.fallbackRoute = 'minha-conta';
-
-    this.permissions = ['root', 'students', 'students/get', 'groups', 'groups/get']
-
   }
 }

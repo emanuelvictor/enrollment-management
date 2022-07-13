@@ -1,24 +1,21 @@
 <div layout='row' layout-align='center center' class='nav-menu'>
 
-  <a layout-margin routerLinkActive #rlaUsers='routerLinkActive' [ngClass]="{'menu-active': rlaUsers.isActive}"
-     routerLink='users' *hasPermission="['root', 'users', 'users/get']; operation 'OR'">
-    Usuários
-  </a>
-
-  <a class='ml-25' layout-margin routerLinkActive
-     [ngClass]="{'menu-active': rlaApplications.isActive}"
-     routerLink='students' #rlaApplications='routerLinkActive'>
-    Estudantes
-  </a>
-
-  <a class='ml-25' layout-margin routerLinkActive #rlaAccessGroups='routerLinkActive'
-     [ngClass]="{'menu-active': rlaAccessGroups.isActive}" routerLink='enrollments'>
+  <a class='ml-25' layout-margin routerLink='enrollments'
+     routerLinkActive #rlaEnrollments='routerLinkActive'
+     [ngClass]="{'menu-active': rlaEnrollments.isActive}">
     Matrículas
   </a>
 
-  <a class='ml-25' layout-margin routerLinkActive #rlaAccessGroups='routerLinkActive'
-     [ngClass]="{'menu-active': rlaAccessGroups.isActive}" routerLink='classes'>
+  <a class='ml-25' layout-margin routerLink='classes'
+     routerLinkActive #rlaClasses='routerLinkActive'
+     [ngClass]="{'menu-active': rlaClasses.isActive}">
     Turmas
+  </a>
+
+  <a class='ml-25' layout-margin routerLink='students'
+     routerLinkActive #rlaStudents='routerLinkActive'
+     [ngClass]="{'menu-active': rlaStudents.isActive}">
+    Estudantes
   </a>
 </div>
 
