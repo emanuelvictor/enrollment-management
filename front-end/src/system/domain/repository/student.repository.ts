@@ -3,13 +3,13 @@ import {BaseRepository} from "../../infrastructure/repository/base/base.reposito
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {PageSerialize} from "../../infrastructure/page-serialize/page-serialize";
 import {Observable} from "rxjs";
-import {User} from "../entity/user.model";
+import {People} from "../entity/people.model";
 
 /**
 *
 */
 @Injectable()
-export class StudentRepository extends BaseRepository<User> {
+export class StudentRepository extends BaseRepository<People> {
 
   /**
    *

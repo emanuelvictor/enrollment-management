@@ -6,16 +6,16 @@
     Matrículas
   </a>
 
+  <a class='ml-25' layout-margin routerLink='students'
+     routerLinkActive #rlaStudents='routerLinkActive'
+     [ngClass]="{'menu-active': rlaStudents.isActive}">
+    Alunos
+  </a>
+
   <a class='ml-25' layout-margin routerLink='classes'
      routerLinkActive #rlaClasses='routerLinkActive'
      [ngClass]="{'menu-active': rlaClasses.isActive}">
     Turmas
-  </a>
-
-  <a class='ml-25' layout-margin routerLink='students'
-     routerLinkActive #rlaStudents='routerLinkActive'
-     [ngClass]="{'menu-active': rlaStudents.isActive}">
-    Estudantes
   </a>
 </div>
 

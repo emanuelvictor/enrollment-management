@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticatedViewComponent} from '../../../authenticated-view.component';
 import {MessageService} from '../../../../../../domain/services/message.service';
 import {StudentRepository} from "../../../../../../domain/repository/student.repository";
-import {User} from "../../../../../../domain/entity/user.model";
+import {People} from "../../../../../../domain/entity/people.model";
 
 // @ts-ignore
 @Component({
@@ -16,12 +16,7 @@ export class InsertStudentComponent implements OnInit {
   /**
    *
    */
-  user: User;
-
-  /**
-   *
-   */
-  itsMe: boolean;
+  student: People;
 
   /**
    *
@@ -34,16 +29,16 @@ export class InsertStudentComponent implements OnInit {
    * @param homeView
    * @param activatedRoute
    * @param messageService
-   * @param userRepository
+   * @param studentRepository
    */
   constructor(private router: Router,
               private homeView: AuthenticatedViewComponent,
               private activatedRoute: ActivatedRoute,
               private messageService: MessageService,
-              private userRepository: StudentRepository) {
+              private studentRepository: StudentRepository) {
 
     if (!this.activatedRoute.snapshot.params.id) {
-      homeView.toolbar.subhead = 'Estudante / Adicionar';
+      homeView.toolbar.subhead = 'Aluno / Adicionar';
     }
 
   }
@@ -52,9 +47,8 @@ export class InsertStudentComponent implements OnInit {
    *
    */
   ngOnInit() {
-    if (this.user && this.user.id) {
-      this.findById();
-      this.itsMe = this.homeView.itsMe(this.user);
+    if (this.student && this.student.id) {
+      this.findById()
     }
   }
 
@@ -62,19 +56,19 @@ export class InsertStudentComponent implements OnInit {
    *
    */
   public findById() {
-    this.userRepository.findById(this.user.id)
-      .subscribe(result => this.user = result)
+    this.studentRepository.findById(this.student.id)
+      .subscribe(result => this.student = result)
   }
 
   /**
    *
-   * @param user
+   * @param student
    */
-  public save(user) {
-    this.userRepository.save(user)
+  public save(student) {
+    this.studentRepository.save(student)
       .then(() => {
         this.router.navigate(['students']);
-        this.messageService.toastSuccess(`Novo estudante inserido.`, 5)
+        this.messageService.toastSuccess(`Novo aluno inserido.`, 5)
       })
   }
 

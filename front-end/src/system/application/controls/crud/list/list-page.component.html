@@ -16,14 +16,14 @@
                                     [advancedFiltersActive]="existsAdvancedFilters(filters)" class="ml-25">
     </button-toggle-advanced-filters>
 
-    <a class="ml-25" mat-raised-button color="primary"
-       [routerLink]="['insert']">
+    <a class="ml-25" mat-raised-button color="primary" *ngIf='insertable' [routerLink]="['insert']">
       <mat-icon>add</mat-icon>
       <span hide-sm hide-xs>Adicionar</span>
     </a>
   </div>
 </div>
 
+<!--todo deve ser lá fora-->
 <div [style.overflow]="'hidden'" [@tdCollapse]="{ value: advancedFilters }">
   <div layout="row" flex class="advanced-filters" (keyup.esc)="clearFilters()">
     <div layout="row" flex="85">
@@ -52,10 +52,10 @@
       </mat-header-cell>
       <mat-cell *matCellDef='let data'>
         <data [routerLink]='[data.id]' [translate]='column.translate' [data]='data' [name]='column.name'></data>
-<!--        <a [routerLink]='[data.id]' ellipsis [matTooltipPosition]="'below'"-->
-<!--           matTooltip="{{ column.translate ? (getData(data, column.name) | translate) || '-' : (getData(data, column.name) || '-')  }}">-->
-<!--           {{ column.translate ? (getData(data, column.name) | translate) || '-' : (getData(data, column.name) || '-')  }}-->
-<!--        </a>-->
+        <!--        <a [routerLink]='[data.id]' ellipsis [matTooltipPosition]="'below'"-->
+        <!--           matTooltip="{{ column.translate ? (getData(data, column.name) | translate) || '-' : (getData(data, column.name) || '-')  }}">-->
+        <!--           {{ column.translate ? (getData(data, column.name) | translate) || '-' : (getData(data, column.name) || '-')  }}-->
+        <!--        </a>-->
       </mat-cell>
     </ng-container>
 

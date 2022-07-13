@@ -1,8 +1,8 @@
 <student-form [entity]='user' *ngIf='user?.id' (save)='save($event)'>
   <div class='toolbar' layout='row' flex toolbar>
     <div layout='column'>
-      <div class='headline' [innerHTML]="'Estudante'"></div>
-      <div class='subhead' [innerHTML]="'Estudante / Editar'"></div>
+      <div class='headline' [innerHTML]="'Aluno'"></div>
+      <div class='subhead' [innerHTML]="'Aluno / Editar'"></div>
     </div>
     <div layout='row' layout-align='end center' flex>
       <button mat-raised-button type='button' (click)='back()'>

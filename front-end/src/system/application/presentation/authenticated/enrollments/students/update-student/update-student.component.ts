@@ -14,19 +14,14 @@ import {StudentRepository} from "../../../../../../domain/repository/student.rep
 })
 export class UpdateStudentComponent implements OnInit {
 
+  /**
+   *
+   */
+  student: any = {};
 
   /**
    *
    */
-  user: any = {
-    organizacao: {},
-    perfis: []
-  };
-
-  /**
-   *
-   */
-  itsMe: boolean;
   error: boolean;
 
   /**
@@ -49,7 +44,7 @@ export class UpdateStudentComponent implements OnInit {
               private studentRepository: StudentRepository) {
 
     homeView.toolbar.subhead = 'Usuário / Editar';
-    this.user.id = +this.activatedRoute.snapshot.params.id;
+    this.student.id = +this.activatedRoute.snapshot.params.id;
 
   }
 
@@ -57,9 +52,8 @@ export class UpdateStudentComponent implements OnInit {
    *
    */
   ngOnInit() {
-    if (this.user && this.user.id) {
+    if (this.student && this.student.id) {
       this.findById();
-      this.itsMe = this.homeView.itsMe(this.user);
     }
   }
 
@@ -71,15 +65,15 @@ export class UpdateStudentComponent implements OnInit {
     if (this.activatedRoute.snapshot.routeConfig.path === 'edit/:id')
       this.router.navigate(['enrollments/students']);
     else
-      this.router.navigate(['enrollments/students/' + this.user.id]);
+      this.router.navigate(['enrollments/students/' + this.student.id]);
   }
 
   /**
    *
    */
   public findById() {
-    this.studentRepository.findById(this.user.id)
-      .subscribe(result => this.user = result);
+    this.studentRepository.findById(this.student.id)
+      .subscribe(result => this.student = result);
   }
 
   /**
@@ -93,7 +87,7 @@ export class UpdateStudentComponent implements OnInit {
       return;
     }
 
-    this.studentRepository.save(this.user)
+    this.studentRepository.save(this.student)
       .then(() => {
         this.router.navigate(['students/students']);
         this.messageService.toastSuccess(`Alterado com sucesso`, 5);

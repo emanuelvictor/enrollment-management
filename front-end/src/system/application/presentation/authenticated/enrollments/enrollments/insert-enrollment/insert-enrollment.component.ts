@@ -2,21 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticatedViewComponent} from '../../../authenticated-view.component';
 import {MessageService} from '../../../../../../domain/services/message.service';
-import {ApplicationRepository} from "../../../../../../domain/repository/application.repository";
-import {Application} from "../../../../../../domain/entity/application.model";
+import {EnrollmentRepository} from "../../../../../../domain/repository/enrollment.repository";
+import {Enrollment} from "../../../../../../domain/entity/enrollment.model";
 
 // @ts-ignore
 @Component({
-  selector: 'insert-application',
-  templateUrl: './insert-application.component.html',
-  styleUrls: ['../application.component.scss']
+  selector: 'insert-enrollment',
+  templateUrl: './insert-enrollment.component.html',
+  styleUrls: ['../enrollment.component.scss']
 })
-export class InsertApplicationComponent implements OnInit {
+export class InsertEnrollmentComponent implements OnInit {
 
   /**
    *
    */
-  application: Application;
+  enrollment: Enrollment;
 
   /**
    *
@@ -34,46 +34,41 @@ export class InsertApplicationComponent implements OnInit {
    * @param homeView
    * @param activatedRoute
    * @param messageService
-   * @param applicationRepository
+   * @param enrollmentRepository
    */
   constructor(private router: Router,
               private homeView: AuthenticatedViewComponent,
               private activatedRoute: ActivatedRoute,
               private messageService: MessageService,
-              private applicationRepository: ApplicationRepository,) {
-
+              private enrollmentRepository: EnrollmentRepository,) {
     if (!this.activatedRoute.snapshot.params.id) {
-      homeView.toolbar.subhead = 'Turma / Adicionar';
+      homeView.toolbar.subhead = 'Turma / Adicionar'
     }
-
   }
 
   /**
    *
    */
   ngOnInit() {
-    if (this.application && this.application.id) {
-      this.findById();
-      this.itsMe = this.homeView.itsMe(this.application);
+    if (this.enrollment && this.enrollment.id) {
+      this.findById()
     }
-
-    // this.listPerfis();
   }
 
   /**
    *
    */
   public findById() {
-    this.applicationRepository.findById(this.application.id)
-      .subscribe(result => this.application = result)
+    this.enrollmentRepository.findById(this.enrollment.id)
+      .subscribe(result => this.enrollment = result)
   }
 
   /**
    *
-   * @param application
+   * @param enrollment
    */
-  public save(application) {
-    this.applicationRepository.save(application)
+  public save(enrollment) {
+    this.enrollmentRepository.save(enrollment)
       .then(() => {
         this.router.navigate(['enrollments/classes']);
         this.messageService.toastSuccess(`Insetrido com sucesso.`, 5)

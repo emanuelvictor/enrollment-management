@@ -3,8 +3,6 @@ import {CrudViewComponent} from "../../../../../../controls/crud/crud-view.compo
 import {FormBuilder, Validators} from "@angular/forms";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions, MatSnackBar} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";
-import {PermissionRepository} from "../../../../../../../domain/repository/permission.repository";
-import {Permission} from "../../../../../../../domain/entity/permission.model";
 import {Class} from "../../../../../../../domain/entity/class.model";
 
 const appearance: MatFormFieldDefaultOptions = {
@@ -28,11 +26,6 @@ export class ClassFormComponent extends CrudViewComponent implements OnInit {
   /**
    *
    */
-  permissions: Permission[];
-
-  /**
-   *
-   */
   @Input()
   entity: Class = new Class();
 
@@ -48,8 +41,7 @@ export class ClassFormComponent extends CrudViewComponent implements OnInit {
   constructor(public snackBar: MatSnackBar,
               public activatedRoute: ActivatedRoute,
               @Inject(ElementRef) public element: ElementRef,
-              public fb: FormBuilder, public renderer: Renderer,
-              private permissionRepository: PermissionRepository) {
+              public fb: FormBuilder, public renderer: Renderer) {
     super(snackBar, element, fb, renderer, activatedRoute);
   }
 

@@ -4,27 +4,26 @@ import {AuthenticatedViewComponent} from '../../../authenticated-view.component'
 import {MessageService} from '../../../../../../domain/services/message.service';
 import {debounce} from "../../../../../utils/debounce";
 import {FormGroup} from "@angular/forms"
-import {ApplicationRepository} from "../../../../../../domain/repository/application.repository";
-import {Application} from "../../../../../../domain/entity/application.model";
+import {EnrollmentRepository} from "../../../../../../domain/repository/enrollment.repository";
+import {Enrollment} from "../../../../../../domain/entity/enrollment.model";
 
 // @ts-ignore
 @Component({
-  selector: 'update-application',
-  templateUrl: './update-application.component.html',
-  styleUrls: ['../application.component.scss']
+  selector: 'update-enrollment',
+  templateUrl: './update-enrollment.component.html',
+  styleUrls: ['../enrollment.component.scss']
 })
-export class UpdateApplicationComponent implements OnInit {
+export class UpdateEnrollmentComponent implements OnInit {
 
 
   /**
    *
    */
-  application: Application = new Application();
+  enrollment: Enrollment = new Enrollment();
 
   /**
    *
    */
-  itsMe: boolean;
   error: boolean;
 
   /**
@@ -38,16 +37,16 @@ export class UpdateApplicationComponent implements OnInit {
    * @param homeView
    * @param activatedRoute
    * @param messageService
-   * @param applicationRepository
+   * @param enrollmentRepository
    */
   constructor(private router: Router,
               private homeView: AuthenticatedViewComponent,
               private activatedRoute: ActivatedRoute,
               private messageService: MessageService,
-              private applicationRepository: ApplicationRepository) {
+              private enrollmentRepository: EnrollmentRepository) {
 
-    homeView.toolbar.subhead = 'Aplicativo / Editar';
-    this.application.id = +this.activatedRoute.snapshot.params.id;
+    homeView.toolbar.subhead = 'Enrollment / Editar';
+    this.enrollment.id = +this.activatedRoute.snapshot.params.id;
 
   }
 
@@ -55,9 +54,8 @@ export class UpdateApplicationComponent implements OnInit {
    *
    */
   ngOnInit() {
-    if (this.application && this.application.id) {
+    if (this.enrollment && this.enrollment.id) {
       this.findById();
-      this.itsMe = this.homeView.itsMe(this.application);
     }
   }
 
@@ -67,17 +65,17 @@ export class UpdateApplicationComponent implements OnInit {
    */
   back() {
     if (this.activatedRoute.snapshot.routeConfig.path === 'edit/:id')
-      this.router.navigate(['access/applications']);
+      this.router.navigate(['access/enrollments']);
     else
-      this.router.navigate(['access/applications/' + this.application.id]);
+      this.router.navigate(['access/enrollments/' + this.enrollment.id]);
   }
 
   /**
    *
    */
   public findById() {
-    this.applicationRepository.findById(this.application.id)
-      .subscribe(result => this.application = result);
+    this.enrollmentRepository.findById(this.enrollment.id)
+      .subscribe(result => this.enrollment = result);
   }
 
   /**
@@ -91,7 +89,7 @@ export class UpdateApplicationComponent implements OnInit {
       return;
     }
 
-    this.applicationRepository.save(this.application)
+    this.enrollmentRepository.save(this.enrollment)
       .then(() => {
         this.router.navigate(['enrollments/classes']);
         this.messageService.toastSuccess(`Alterado com sucesso`, 5);

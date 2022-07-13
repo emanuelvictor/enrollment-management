@@ -1,10 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from '../application/presentation/login/login.component';
-import {InsertPasswordComponent} from '../application/presentation/manage-password/insert-password.component';
-import {RecoveryPasswordComponent} from '../application/presentation/manage-password/recovery-password.component';
 import {AuthenticatedViewComponent} from "../application/presentation/authenticated/authenticated-view.component";
-import {AuthenticationService} from "./services/authentication.service";
 import {ConsultStudentsComponent} from "../application/presentation/authenticated/enrollments/students/consult-students/consult-students.component";
 import {StudentViewComponent} from "../application/presentation/authenticated/enrollments/students/student-view.component";
 import {InsertStudentComponent} from "../application/presentation/authenticated/enrollments/students/insert-student/insert-student.component";
@@ -16,16 +12,19 @@ import {InsertClassComponent} from "../application/presentation/authenticated/en
 import {UpdateClassComponent} from "../application/presentation/authenticated/enrollments/classes/update-class/update-class.component";
 import {ViewClassComponent} from "../application/presentation/authenticated/enrollments/classes/view-class/view-class.component";
 import {ConsultClassesComponent} from "../application/presentation/authenticated/enrollments/classes/consult-classes/consult-classes.component";
-import {ConsultApplicationsComponent} from "../application/presentation/authenticated/enrollments/applications/consult-applications/consult-applications.component";
-import {InsertApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/insert-application/insert-application.component";
-import {UpdateApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/update-application/update-application.component";
-import {ViewApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/view-application/view-application.component";
-import {ApplicationViewComponent} from "../application/presentation/authenticated/enrollments/applications/application-view.component";
+import {ConsultEnrollmentsComponent} from "../application/presentation/authenticated/enrollments/enrollments/consult-enrollments/consult-enrollments.component";
+import {InsertEnrollmentComponent} from "../application/presentation/authenticated/enrollments/enrollments/insert-enrollment/insert-enrollment.component";
+import {UpdateEnrollmentComponent} from "../application/presentation/authenticated/enrollments/enrollments/update-enrollment/update-enrollment.component";
+import {ViewEnrollmentComponent} from "../application/presentation/authenticated/enrollments/enrollments/view-enrollment/view-enrollment.component";
+import {EnrollmentViewComponent} from "../application/presentation/authenticated/enrollments/enrollments/enrollment-view.component";
 
 const routes: Routes = [
   {
     path: '', component: AuthenticatedViewComponent,
     children: [
+      {
+        path: '', redirectTo: 'enrollment', pathMatch: 'full',
+      },
       {
         path: 'enrollment',
         component: EnrollmentsViewComponent,
@@ -34,14 +33,14 @@ const routes: Routes = [
             path: '', redirectTo: 'enrollments', pathMatch: 'full',
           },
           {
-            path: 'enrollments', component: ClassesViewComponent,
+            path: 'enrollments', component: EnrollmentViewComponent,
             children: [
               {path: 'get', redirectTo: '', pathMatch: 'full'},
-              {path: '', component: ConsultClassesComponent},
-              {path: 'insert', component: InsertClassComponent},
-              {path: 'edit/:id', component: UpdateClassComponent},
-              {path: ':id/edit', component: UpdateClassComponent},
-              {path: ':id', component: ViewClassComponent}
+              {path: '', component: ConsultEnrollmentsComponent},
+              {path: 'insert', component: InsertEnrollmentComponent},
+              {path: 'edit/:id', component: UpdateEnrollmentComponent},
+              {path: ':id/edit', component: UpdateEnrollmentComponent},
+              {path: ':id', component: ViewEnrollmentComponent}
             ]
           },
           {

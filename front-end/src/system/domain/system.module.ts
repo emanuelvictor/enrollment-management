@@ -1,11 +1,9 @@
 import {SharedModule} from '../../shared/shared.module';
 import {Interceptor} from '../application/interceptor/interceptor';
 import {Describer} from '../application/describer/describer';
-import {AuthenticationService} from './services/authentication.service';
 import {WildcardService} from './services/wildcard.service';
 import {MessageService} from './services/message.service';
 import {DialogService} from './services/dialog.service';
-import {LoginComponent} from '../application/presentation/login/login.component';
 import {AuthenticatedViewComponent} from '../application/presentation/authenticated/authenticated-view.component';
 import {DeleteDialogComponent} from '../application/controls/delete-dialog/delete-dialog.component';
 import {CrudViewComponent} from '../application/controls/crud/crud-view.component';
@@ -18,10 +16,8 @@ import {SystemRoutingModule} from "./system.routing.module";
 import {EmConstrucaoComponent} from "../application/controls/not-found/em-construcao.component";
 import {ClassRepository} from "./repository/class.repository";
 import {StudentRepository} from "./repository/student.repository";
-import {PermissionRepository} from "./repository/permission.repository";
 import {EvDatepicker} from "../application/controls/ev-datepicker/ev-datepicker";
 import {FirstUppercasePipe} from "../application/utils/utils";
-import {HasPermissionDirective} from "../application/has-permission/has-permission";
 import {CnpjValidator, CpfValidator} from "../application/controls/validators/validators";
 import {DocumentoPipe} from "../application/controls/documento-pipe/documento-pipe";
 import {UserInitialsPipe} from "../application/controls/pipes/user-initials.pipe";
@@ -64,13 +60,13 @@ import {UpdateStudentComponent} from "../application/presentation/authenticated/
 import {ConsultClassesComponent} from "../application/presentation/authenticated/enrollments/classes/consult-classes/consult-classes.component";
 import {ClassesViewComponent} from "../application/presentation/authenticated/enrollments/classes/classes-view.component";
 import {EnrollmentsViewComponent} from "../application/presentation/authenticated/enrollments/enrollments-view.component";
-import {ApplicationViewComponent} from "../application/presentation/authenticated/enrollments/applications/application-view.component";
-import {ConsultApplicationsComponent} from "../application/presentation/authenticated/enrollments/applications/consult-applications/consult-applications.component";
-import {InsertApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/insert-application/insert-application.component";
-import {UpdateApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/update-application/update-application.component";
-import {ViewApplicationComponent} from "../application/presentation/authenticated/enrollments/applications/view-application/view-application.component";
-import {ApplicationRepository} from "./repository/application.repository";
-import {ApplicationFormComponent} from "../application/presentation/authenticated/enrollments/applications/insert-application/application-form/application-form.component";
+import {EnrollmentViewComponent} from "../application/presentation/authenticated/enrollments/enrollments/enrollment-view.component";
+import {ConsultEnrollmentsComponent} from "../application/presentation/authenticated/enrollments/enrollments/consult-enrollments/consult-enrollments.component";
+import {InsertEnrollmentComponent} from "../application/presentation/authenticated/enrollments/enrollments/insert-enrollment/insert-enrollment.component";
+import {UpdateEnrollmentComponent} from "../application/presentation/authenticated/enrollments/enrollments/update-enrollment/update-enrollment.component";
+import {ViewEnrollmentComponent} from "../application/presentation/authenticated/enrollments/enrollments/view-enrollment/view-enrollment.component";
+import {EnrollmentRepository} from "./repository/enrollment.repository";
+import {EnrollmentFormComponent} from "../application/presentation/authenticated/enrollments/enrollments/insert-enrollment/enrollment-form/enrollment-form.component";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -98,7 +94,6 @@ export function customTranslateLoader(http: HttpClient) {
 
     // COMPONENTS
     SystemComponent,
-    LoginComponent,
     AuthenticatedViewComponent,
 
     // CONTROLS
@@ -141,19 +136,18 @@ export function customTranslateLoader(http: HttpClient) {
     StudentFormComponent,
     UpdateStudentComponent,
 
-    // Application
-    ApplicationViewComponent,
-    ConsultApplicationsComponent,
-    InsertApplicationComponent,
-    UpdateApplicationComponent,
-    UpdateApplicationComponent,
-    ViewApplicationComponent,
+    // Enrollment
+    EnrollmentViewComponent,
+    ConsultEnrollmentsComponent,
+    InsertEnrollmentComponent,
+    UpdateEnrollmentComponent,
+    UpdateEnrollmentComponent,
+    ViewEnrollmentComponent,
 
     DataComponent,
 
     // Has Permission
-    HasPermissionDirective,
-    ApplicationFormComponent,
+    EnrollmentFormComponent,
 
   ],
   imports: [
@@ -187,15 +181,13 @@ export function customTranslateLoader(http: HttpClient) {
 
     // Repositories
     StudentRepository,
-    PermissionRepository,
-    ApplicationRepository,
+    EnrollmentRepository,
     ClassRepository,
 
     // Services
     Describer,
     WildcardService,
     PaginationService,
-    AuthenticationService,
 
     StudentViewComponent,
     EnrollmentsViewComponent,

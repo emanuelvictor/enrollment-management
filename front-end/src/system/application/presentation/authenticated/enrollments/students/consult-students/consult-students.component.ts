@@ -4,7 +4,7 @@ import {PaginationService} from '../../../../../../domain/services/pagination.se
 import {handlePageable} from '../../../../../utils/handle-data-table';
 import {StudentRepository} from "../../../../../../domain/repository/student.repository";
 import {ListPageComponent} from 'system/application/controls/crud/list/list-page.component';
-import {User} from 'system/domain/entity/user.model';
+import {People} from 'system/domain/entity/people.model';
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {MatTableDataSource} from "@angular/material";
 
@@ -17,7 +17,7 @@ import {MatTableDataSource} from "@angular/material";
 export class ConsultStudentsComponent implements OnInit {
 
   @ViewChild(ListPageComponent, {static: true})
-  private student: User = new User();
+  private student: People = new People();
 
   public filters: any = {defaultFilter: '', deletedFilter: false}; // Estado inicial dos filtros
 
@@ -106,14 +106,14 @@ export class ConsultStudentsComponent implements OnInit {
    */
   public openDeleteDialog(student) {
 
-    this.dialogService.confirmDelete(student, 'ESTUDANTE')
+    this.dialogService.confirmDelete(student, 'ALUNO')
       .then((accept: boolean) => {
 
         if (accept) {
           this.studentRepository.delete(student.id)
             .then(() => {
               this.listByFilters();
-              this.messageService.toastSuccess('Estudante excluído com sucesso')
+              this.messageService.toastSuccess('Aluno excluído com sucesso')
             });
         }
       });

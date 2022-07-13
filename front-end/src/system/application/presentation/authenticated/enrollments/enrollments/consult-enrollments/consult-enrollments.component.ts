@@ -2,31 +2,30 @@ import {DialogService} from '../../../../../../domain/services/dialog.service';
 import {MessageService} from '../../../../../../domain/services/message.service';
 import {PaginationService} from '../../../../../../domain/services/pagination.service';
 import {handlePageable} from '../../../../../utils/handle-data-table';
-import {ApplicationRepository} from "../../../../../../domain/repository/application.repository";
+import {EnrollmentRepository} from "../../../../../../domain/repository/enrollment.repository";
 import {ListPageComponent} from 'system/application/controls/crud/list/list-page.component';
-import {Application} from 'system/domain/entity/application.model';
+import {Enrollment} from 'system/domain/entity/enrollment.model';
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {MatTableDataSource} from "@angular/material";
 
 // @ts-ignore
 @Component({
-  selector: 'consultar-applications',
-  templateUrl: './consult-applications.component.html',
-  styleUrls: ['../application.component.scss']
+  selector: 'consult-enrollments',
+  templateUrl: './consult-enrollments.component.html',
+  styleUrls: ['../enrollment.component.scss']
 })
-export class ConsultApplicationsComponent implements OnInit {
+export class ConsultEnrollmentsComponent implements OnInit {
 
   @ViewChild(ListPageComponent, {static: true})
-  private application: Application = new Application();
+  private enrollment: Enrollment = new Enrollment();
 
-  public filters: any = {defaultFilter: '', enableFilter: 'true'}; // Estado inicial dos filtros
+  public filters: any = {defaultFilter: ''}; // Estado inicial dos filtros
 
   public pageable: any = {
     size: 20,
     page: 0,
     sort: null,
-    defaultFilter: [],
-    enableFilter: true
+    defaultFilter: []
   };
 
   public totalElements: any;
@@ -34,7 +33,10 @@ export class ConsultApplicationsComponent implements OnInit {
   public pageSize: any;
 
   public columns: any[] = [
-    {name: 'clientId', label: "Nome do Aplicativo"}
+    {name: 'student.name', label: "Nome do Aluno"},
+    {name: 'student.email', label: "Email do Aluno"},
+    {name: 'student.document', label: "CPF do Aluno"},
+    {name: 'class.name', label: "Nome da Turma"}
   ];
 
   public displayedColumns: string[] = this.columns.map(cell => cell.name);
@@ -45,12 +47,12 @@ export class ConsultApplicationsComponent implements OnInit {
    * @param dialogService {DialogService}
    * @param paginationService {PaginationService}
    * @param messageService {MessageService}
-   * @param applicationRepository {ApplicationRepository}
+   * @param enrollmentRepository {EnrollmentRepository}
    */
   constructor(private dialogService: DialogService,
               paginationService: PaginationService,
               private messageService: MessageService,
-              private applicationRepository: ApplicationRepository) {
+              private enrollmentRepository: EnrollmentRepository) {
 
     this.displayedColumns.push('acoes');
     this.pageable = paginationService.pageable('clientId');
@@ -62,7 +64,7 @@ export class ConsultApplicationsComponent implements OnInit {
    */
   ngOnInit() {
     // Seta o size do pageable no size do paginator
-    (this.application as any).paginator.pageSize = this.pageable.size;
+    (this.enrollment as any).paginator.pageSize = this.pageable.size;
 
     // Sobrescreve o sortChange do sort bindado
     this.sortChange();
@@ -72,8 +74,8 @@ export class ConsultApplicationsComponent implements OnInit {
    *
    */
   public sortChange() {
-    (this.application as any).sort.sortChange.subscribe(() => {
-      const {active, direction} = (this.application as any).sort;
+    (this.enrollment as any).sort.sortChange.subscribe(() => {
+      const {active, direction} = (this.enrollment as any).sort;
       this.pageable.sort = {'properties': active, 'direction': direction};
       this.listByFilters();
     });
@@ -86,10 +88,9 @@ export class ConsultApplicationsComponent implements OnInit {
    */
   public listByFilters(hasAnyFilter: boolean = false) {
 
-    const pageable = handlePageable(hasAnyFilter, (this.application as any).paginator, this.pageable);
-    pageable.enableFilter = (this.application as any).filters.enableFilter;
-    pageable.defaultFilter = (this.application as any).filters.defaultFilter;
-    this.applicationRepository.listByFilters(pageable)
+    const pageable = handlePageable(hasAnyFilter, (this.enrollment as any).paginator, this.pageable);
+    pageable.defaultFilter = (this.enrollment as any).filters.defaultFilter;
+    this.enrollmentRepository.listByFilters(pageable)
       .subscribe(result => {
         this.dataSource = new MatTableDataSource(result.content);
         this.totalElements = result.totalElements;
@@ -100,18 +101,18 @@ export class ConsultApplicationsComponent implements OnInit {
 
   /**
    * Função para confirmar a exclusão de um registro permanentemente
-   * @param application
+   * @param enrollment
    */
-  public openDeleteDialog(application) {
+  public openDeleteDialog(enrollment) {
 
-    this.dialogService.confirmDelete(application, 'USUÁRIO')
+    this.dialogService.confirmDelete(enrollment, 'MATRÍCULA')
       .then((accept: boolean) => {
 
         if (accept) {
-          this.applicationRepository.delete(application.id)
+          this.enrollmentRepository.delete(enrollment.id)
             .then(() => {
               this.listByFilters();
-              this.messageService.toastSuccess('Usuário excluído com sucesso')
+              this.messageService.toastSuccess('Matrícula excluída com sucesso')
             });
         }
       });

@@ -20,12 +20,7 @@ export class ViewStudentComponent implements OnInit {
   /**
    *
    */
-  user: any = {};
-
-  /**
-   *
-   */
-  itsMe: boolean;
+  student: any = {};
 
   /**
    *
@@ -34,44 +29,43 @@ export class ViewStudentComponent implements OnInit {
    * @param homeView
    * @param activatedRoute
    * @param messageService
-   * @param userRepository
+   * @param studentRepository
    */
   constructor(private router: Router,
               private dialog: MatDialog,
               public activatedRoute: ActivatedRoute,
               private messageService: MessageService,
               public homeView: AuthenticatedViewComponent,
-              private userRepository: StudentRepository) {
-    this.user.id = +this.activatedRoute.snapshot.params.id || null;
-    homeView.toolbar.subhead = 'Estudante / Detalhes'
+              private studentRepository: StudentRepository) {
+    this.student.id = +this.activatedRoute.snapshot.params.id || null;
+    homeView.toolbar.subhead = 'Aluno / Detalhes'
   }
 
   /**
    *
    */
   ngOnInit() {
-    if (this.user && this.user.id) {
+    if (this.student && this.student.id) {
       this.findById();
-      this.itsMe = this.homeView.itsMe(this.user)
-    } else this.router.navigate(["enrollments/users"])
+    } else this.router.navigate(["enrollments/students"])
   }
 
   /**
    *
    */
   public findById() {
-    this.userRepository.findById(this.user.id)
-      .subscribe(result => this.user = result)
+    this.studentRepository.findById(this.student.id)
+      .subscribe(result => this.student = result)
   }
 
   /**
    *
    */
   public updateEnabled(id: number) {
-    this.userRepository.updateAtivo(id)
+    this.studentRepository.updateAtivo(id)
       .then((enabled) => {
-        this.user.enabled = enabled;
-        this.messageService.toastSuccess(this.user.enabled ? 'Ativado com sucesso' : 'Inativado com sucesso')
+        this.student.enabled = enabled;
+        this.messageService.toastSuccess(this.student.enabled ? 'Ativado com sucesso' : 'Inativado com sucesso')
       })
   }
 }

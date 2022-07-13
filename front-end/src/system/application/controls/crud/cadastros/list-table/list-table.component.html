@@ -16,7 +16,7 @@
                                     [advancedFiltersActive]="existsAdvancedFilters(filters)" class="ml-25">
     </button-toggle-advanced-filters>
 
-    <a class="ml-25" *hasPermission="rolesToAdd; operation 'OR'" mat-raised-button color="primary"
+    <a class="ml-25" mat-raised-button color="primary"
        [routerLink]="['insert']">
       <mat-icon>add</mat-icon>
       <span hide-sm hide-xs>Adicionar</span>
@@ -72,17 +72,17 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #appMenu="matMenu">
-          <ng-container *hasPermission="rolesToEdit; operation 'OR'">
+          <ng-container >
             <button *ngIf='editavel' mat-menu-item [routerLink]="['edit/' + data?.id]">
               Editar
             </button>
           </ng-container>
-          <ng-container *hasPermission="rolesToDelete; operation 'OR'">
+          <ng-container>
             <button mat-menu-item (click)="activateItem(data)">
               {{data.ativo ? 'Desativar' : 'Ativar'}}
             </button>
           </ng-container>
-          <ng-container *hasPermission="rolesToDelete; operation 'OR'">
+          <ng-container>
             <button *ngIf='deletavel' mat-menu-item (click)="openDeleteDialog(data)">
               Excluir
             </button>

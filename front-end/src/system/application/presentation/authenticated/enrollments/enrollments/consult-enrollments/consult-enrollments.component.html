@@ -1,13 +1,16 @@
 <list-page [gender]="'M'"
-           [deletavel]='false'
+           [deletavel]='true'
            [columns]="columns"
            [dataSource]="dataSource"
-           [headline]="'Alunos'"
-           [subhead]="'Alunos / Consulta'"
+           [headline]="'Matrículas'"
+           [subhead]="'Matrículas / Consulta'"
            (list)='listByFilters($event)'
            [totalElements]="totalElements"
            [pageSize]="pageSize"
            [pageIndex]="pageIndex"
+           [rolesToAdd]="['nops']"
+           [rolesToEdit]="['nops']"
+           [insertable]='false'
            (delete)="openDeleteDialog($event)"
            [displayedColumns]="displayedColumns">
 </list-page>
