@@ -24,4 +24,4 @@ EXPOSE ${HTTP_PORT}
 
 COPY --from=build /usr/src/app/target/${JAR_NAME}.jar ./app.jar
 
-CMD ["java", "-Dspring.datasource.url=jdbc:postgresql://postgres:5432/enrollment", "-jar", "./app.jar"]
+CMD ["java", "-Dspring.datasource.url=jdbc:postgresql://enrollment.db:5432/enrollment", "-jar", "./app.jar"]

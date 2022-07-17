@@ -6,14 +6,14 @@ services:
       context: .
     container_name: enrollment.api
     depends_on:
-      - postgres
+      - db
     ports:
       - "8080:8080"
 
-  postgres:
-    image: 'postgres'
+  db:
+    image: 'enrollment.db'
     build:
-      context: postgres
-    container_name: postgres
+      dockerfile: postgres/Dockerfile
+    container_name: enrollment.db
     ports:
       - "5432:5432"

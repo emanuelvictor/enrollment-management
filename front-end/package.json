@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "ng serve --proxy-config proxy.conf.json system --port 4200 --open",
+    "docker.start": "ng serve --proxy-config docker.proxy.conf.json system --port 4200",
     "mavenbuild": "ng build --prod system"
   },
   "dependencies": {

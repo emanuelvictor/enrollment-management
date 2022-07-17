@@ -1,6 +1,6 @@
 {
   "/static": {
-    "target": "http://127.0.0.1:8080/static",
+    "target": "http://enrollment.api:8080/static",
     "changeOrigin": true,
     "secure": false,
     "pathRewrite": {
@@ -10,7 +10,7 @@
   },
 
   "/": {
-    "target": "http://127.0.0.1:8080/",
+    "target": "http://enrollment.api:8080/",
     "changeOrigin": true,
     "secure": false,
     "pathRewrite": {
@@ -20,7 +20,7 @@
   },
 
   "/favicon.ico": {
-    "target": "http://127.0.0.1:8080/favicon.ico",
+    "target": "http://enrollment.api:8080/favicon.ico",
     "changeOrigin": true,
     "secure": false,
     "pathRewrite": {
@@ -30,7 +30,7 @@
   },
 
   "/logout": {
-    "target": "http://127.0.0.1:8080/logout",
+    "target": "http://enrollment.api:8080/logout",
     "changeOrigin": true,
     "secure": false,
     "pathRewrite": {
