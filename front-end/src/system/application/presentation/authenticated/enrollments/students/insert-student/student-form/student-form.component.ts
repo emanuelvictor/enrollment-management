@@ -13,7 +13,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ViewChild } from '@angular/core';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -38,7 +38,7 @@ export class StudentFormComponent extends CrudViewComponent {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredEnrollments: Observable<string[]>;
-  allEnrollments: Enrollment[] = [
+  allEnrollments: any[] = [
     {
       'class': { name: 'Name 1', id: 1 }
     },
@@ -121,7 +121,7 @@ export class StudentFormComponent extends CrudViewComponent {
 
       // Add our class
       if (value && value != '')
-        this.entity.enrollments.push(value);
+        this.entity.enrollments.push(value as any);
 
       // Reset the input value
       if (input)
