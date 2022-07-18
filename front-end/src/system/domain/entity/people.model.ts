@@ -1,4 +1,5 @@
 import {Abstract} from './abstract/abstract.model';
+import { Enrollment } from './enrollment.model';
 
 export class People extends Abstract {
 
@@ -11,5 +12,10 @@ export class People extends Abstract {
    *
    */
   public document: string;
+
+  /**
+   *
+   */
+  public enrollments: Enrollment[] = [];
 
 }

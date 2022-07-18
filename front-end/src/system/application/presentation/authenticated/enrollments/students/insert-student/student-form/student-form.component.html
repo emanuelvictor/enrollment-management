@@ -41,17 +41,16 @@
     <mat-form-field flex style='display: block'>
       <mat-label>Turmas</mat-label>
       <mat-chip-list #chipList aria-label='Seleção de Turma'>
-        <mat-chip (removed)='remove(enrollment)' *ngFor='let enrollment of enrollments'>
+        <mat-chip (removed)='remove(enrollment)' *ngFor='let enrollment of entity.enrollments'>
           {{enrollment?.class?.name}}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
-        <input  [matAutocomplete]='auto'
-                [matChipInputFor]='chipList'
+        <input  [matChipInputFor]='chipList'
                 formControlName='enrollments'
-                placeholder='Nova turma...'
                 id='enrollments' name='enrollments'
                 (matChipInputTokenEnd)='add($event)'
                 flex #enrollmentsInput matInput required
+                [matAutocomplete]='auto' placeholder='Nova turma...'
                 [matChipInputSeparatorKeyCodes]='separatorKeysCodes'>
       </mat-chip-list>
       <mat-autocomplete #auto='matAutocomplete' (optionSelected)='selected($event)'>

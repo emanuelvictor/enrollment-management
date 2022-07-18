@@ -38,7 +38,6 @@ export class StudentFormComponent extends CrudViewComponent {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredEnrollments: Observable<string[]>;
-  enrollments: Enrollment[] = [];
   allEnrollments: Enrollment[] = [
     {
       'class': { name: 'Name 1', id: 1 }
@@ -78,14 +77,14 @@ export class StudentFormComponent extends CrudViewComponent {
    * @param fb 
    * @param renderer 
    */
-  constructor(  private router: Router,
-                public snackBar: MatSnackBar,
-                public activatedRoute: ActivatedRoute,
-                private messageService: MessageService,
-                private studentRepository: StudentRepository,
-                private homeView: AuthenticatedViewComponent,
-                @Inject(ElementRef) public element: ElementRef,
-                public fb: FormBuilder, public renderer: Renderer) {
+  constructor(private router: Router,
+    public snackBar: MatSnackBar,
+    public activatedRoute: ActivatedRoute,
+    private messageService: MessageService,
+    private studentRepository: StudentRepository,
+    private homeView: AuthenticatedViewComponent,
+    @Inject(ElementRef) public element: ElementRef,
+    public fb: FormBuilder, public renderer: Renderer) {
 
     super(snackBar, element, fb, renderer, activatedRoute);
 
@@ -122,7 +121,7 @@ export class StudentFormComponent extends CrudViewComponent {
 
       // Add our class
       if (value && value != '')
-        this.enrollments.push(value);
+        this.entity.enrollments.push(value);
 
       // Reset the input value
       if (input)
@@ -137,9 +136,9 @@ export class StudentFormComponent extends CrudViewComponent {
    * @param enrollment 
    */
   remove(enrollment: Enrollment): void {
-    const index = this.enrollments.indexOf(enrollment);
+    const index = this.entity.enrollments.indexOf(enrollment);
     if (index >= 0) {
-      this.enrollments.splice(index, 1);
+      this.entity.enrollments.splice(index, 1);
     }
   }
 
@@ -148,7 +147,7 @@ export class StudentFormComponent extends CrudViewComponent {
    * @param event 
    */
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.enrollments.push(event.option.value);
+    this.entity.enrollments.push(event.option.value);
     this.enrollmentsInput.nativeElement.value = '';
     this.form.controls.enrollments.setValue(null);
   }
@@ -171,9 +170,9 @@ export class StudentFormComponent extends CrudViewComponent {
         return enrollment['class'].name.toLowerCase().indexOf(filterValue) === 0
       }).filter(enrollment => {
 
-        const find = this.enrollments.filter(enr => {
-                  return enr.class.id === enrollment.class.id
-                }).length > 0;
+        const find = this.entity.enrollments.filter(enr => {
+          return enr.class.id === enrollment.class.id
+        }).length > 0;
 
         return !find
       })
