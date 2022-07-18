@@ -32,7 +32,7 @@ export class InsertClassComponent {
               private classRepository: ClassRepository,
               private homeView: AuthenticatedViewComponent) {
 
-    homeView.toolbar.subhead = 'Class/ Adicionar'
+    homeView.toolbar.subhead = 'Turma / Adicionar'
 
   }
 
@@ -45,7 +45,7 @@ export class InsertClassComponent {
 
     this.classRepository.save(this.class)
       .then(() => {
-        this.router.navigate(['enrollments/classes']);
+        this.router.navigate(['enrollment/classes']);
         this.messageService.toastSuccess();
       });
   }

@@ -47,7 +47,7 @@ export class ViewStudentComponent implements OnInit {
   ngOnInit() {
     if (this.student && this.student.id) {
       this.findById();
-    } else this.router.navigate(["enrollments/students"])
+    } else this.router.navigate(["enrollment/students"])
   }
 
   /**

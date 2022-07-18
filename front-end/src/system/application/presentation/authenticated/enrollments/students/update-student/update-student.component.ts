@@ -25,11 +25,6 @@ export class UpdateStudentComponent implements OnInit {
   error: boolean;
 
   /**
-   * Exibir senha
-   */
-  inputType: string = 'password';
-
-  /**
    *
    * @param router
    * @param homeView
@@ -43,7 +38,7 @@ export class UpdateStudentComponent implements OnInit {
               private messageService: MessageService,
               private studentRepository: StudentRepository) {
 
-    homeView.toolbar.subhead = 'Usuário / Editar';
+    homeView.toolbar.subhead = 'Aluno / Editar';
     this.student.id = +this.activatedRoute.snapshot.params.id;
 
   }
@@ -63,9 +58,9 @@ export class UpdateStudentComponent implements OnInit {
    */
   back() {
     if (this.activatedRoute.snapshot.routeConfig.path === 'edit/:id')
-      this.router.navigate(['enrollments/students']);
+      this.router.navigate(['enrollment/students']);
     else
-      this.router.navigate(['enrollments/students/' + this.student.id]);
+      this.router.navigate(['enrollment/students/' + this.student.id]);
   }
 
   /**
@@ -89,7 +84,7 @@ export class UpdateStudentComponent implements OnInit {
 
     this.studentRepository.save(this.student)
       .then(() => {
-        this.router.navigate(['students/students']);
+        this.router.navigate(['enrollment/students']);
         this.messageService.toastSuccess(`Alterado com sucesso`, 5);
       });
   }

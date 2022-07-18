@@ -10,10 +10,10 @@
     </button>
     <div>
       <button mat-raised-button type='button' color='warn'
-              (click)='updateEnabled(user.id)' class='ml-25'
-              [ngClass]="{'activate': !user.deleted, 'inactivate': user.deleted}">
-        <mat-icon>{{ user.deleted ? 'check' : 'block' }}</mat-icon>
-        <span>{{ user.deleted ? 'Restaurar' : 'Excluir' }}</span>
+              (click)='updateEnabled(student.id)' class='ml-25'
+              [ngClass]="{'activate': !student.deleted, 'inactivate': student.deleted}">
+        <mat-icon>{{ student.deleted ? 'check' : 'block' }}</mat-icon>
+        <span>{{ student.deleted ? 'Restaurar' : 'Excluir' }}</span>
       </button>
 
     </div>
@@ -28,17 +28,17 @@
   <div layout='row' layout-sm='column' layout-xs='column'>
     <div layout='column' flex>
       <label class='title'>Nome:</label>
-      <label class='text'>{{ user.name }}</label>
+      <label class='text'>{{ student.name }}</label>
     </div>
     <horizontal-space></horizontal-space>
     <div layout='column' flex>
       <label class='title'>E-mail:</label>
-      <label class='text' *ngIf='user.email'>{{ user.email }}</label>
+      <label class='text' *ngIf='student.email'>{{ student.email }}</label>
     </div>
     <horizontal-space></horizontal-space>
     <div layout='column' flex>
       <label class='title'>CPF:</label>
-      <label class='text'>{{ user.document }}</label>
+      <label class='text'>{{ student.document }}</label>
     </div>
   </div>
 </mat-card>

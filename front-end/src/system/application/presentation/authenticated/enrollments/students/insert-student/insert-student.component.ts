@@ -67,7 +67,7 @@ export class InsertStudentComponent implements OnInit {
   public save(student) {
     this.studentRepository.save(student)
       .then(() => {
-        this.router.navigate(['students']);
+        this.router.navigate(['enrollment/students']);
         this.messageService.toastSuccess(`Novo aluno inserido.`, 5)
       })
   }
