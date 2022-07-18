@@ -1,3 +1,6 @@
+front-end/.idea
+front-end/.idea/
+front-end/.idea/**
 release.properties
 pom.xml.releaseBackup
 ./target
