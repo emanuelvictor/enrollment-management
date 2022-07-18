@@ -47,14 +47,14 @@
         </mat-chip>
         <input  [matChipInputFor]='chipList'
                 formControlName='enrollments'
+                flex #enrollmentsInput matInput
                 id='enrollments' name='enrollments'
                 (matChipInputTokenEnd)='add($event)'
-                flex #enrollmentsInput matInput required
                 [matAutocomplete]='auto' placeholder='Nova turma...'
                 [matChipInputSeparatorKeyCodes]='separatorKeysCodes'>
       </mat-chip-list>
       <mat-autocomplete #auto='matAutocomplete' (optionSelected)='selected($event)'>
-        <mat-option [value]='enrollment' *ngFor='let enrollment of filteredEnrollments | async' >
+        <mat-option [value]='enrollment' *ngFor='let enrollment of filteredEnrollments' >
           {{enrollment?.class?.name}}
         </mat-option>
       </mat-autocomplete>

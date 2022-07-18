@@ -5,19 +5,21 @@ import { AuthenticatedViewComponent } from '../../../../authenticated-view.compo
 import { MessageService } from '../../../../../../../domain/services/message.service';
 import { debounce } from "../../../../../../utils/debounce";
 import { FormBuilder, FormControl, Validators } from "@angular/forms"
+import { ClassRepository } from "../../../../../../../domain/repository/class.repository";
 import { StudentRepository } from "../../../../../../../domain/repository/student.repository";
 import { CrudViewComponent } from "../../../../../../controls/crud/crud-view.component";
 import { People } from "../../../../../../../domain/entity/people.model";
 import 'rxjs/add/operator/debounceTime';
 import { debounceTime, switchMap } from 'rxjs/operators';
-
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, T } from '@angular/cdk/keycodes';
 import { ViewChild } from '@angular/core';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Enrollment } from 'system/domain/entity/enrollment.model';
+import { isNullOrUndefined } from "util";
+import 'rxjs/add/operator/map';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
@@ -37,7 +39,7 @@ const appearance: MatFormFieldDefaultOptions = {
 export class StudentFormComponent extends CrudViewComponent {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredEnrollments: Observable<string[]>;
+  filteredEnrollments: Enrollment[] = [];
   allEnrollments: any[] = [
     {
       'class': { name: 'Name 1', id: 1 }
@@ -81,6 +83,7 @@ export class StudentFormComponent extends CrudViewComponent {
     public snackBar: MatSnackBar,
     public activatedRoute: ActivatedRoute,
     private messageService: MessageService,
+    private classRepository: ClassRepository,
     private studentRepository: StudentRepository,
     private homeView: AuthenticatedViewComponent,
     @Inject(ElementRef) public element: ElementRef,
@@ -92,14 +95,15 @@ export class StudentFormComponent extends CrudViewComponent {
       name: new FormControl({ value: '', disabled: false }, Validators.required),
       email: new FormControl({ value: '', disabled: false }, Validators.required),
       cpf: new FormControl({ value: '', disabled: false }, Validators.required),
-      enrollments: new FormControl({ value: '', disabled: false }, Validators.required)
+      enrollments: new FormControl({ value: '', disabled: false })
     });
 
-    this.filteredEnrollments = this.form.controls.enrollments.valueChanges.pipe(
-      startWith(null),
-      map((className: string | null) => {
-        return className ? this._filter(className) : this._filter('')
-      }))
+    this.filteredEnrollments = this.form.controls.enrollments.valueChanges.subscribe(className => {
+      if (className && className !== '')
+        this._filter(className).then(content => {
+          this.filteredEnrollments = content
+        })
+    })
   }
 
   /**
@@ -137,9 +141,8 @@ export class StudentFormComponent extends CrudViewComponent {
    */
   remove(enrollment: Enrollment): void {
     const index = this.entity.enrollments.indexOf(enrollment);
-    if (index >= 0) {
-      this.entity.enrollments.splice(index, 1);
-    }
+    if (index >= 0)
+      this.entity.enrollments.splice(index, 1)
   }
 
   /**
@@ -158,23 +161,41 @@ export class StudentFormComponent extends CrudViewComponent {
    
    * @returns 
    */
-  private _filter(value: any): Enrollment[] {
+  private _filter(value: any): Promise<any> {
+
     let filterValue = '';
     if (value && value.class)
       filterValue = value.class.name.toLowerCase();
     else
       filterValue = value.toLowerCase();
 
-    return this.allEnrollments
-      .filter(enrollment => {
-        return enrollment['class'].name.toLowerCase().indexOf(filterValue) === 0
-      }).filter(enrollment => {
+    const that = this;
 
-        const find = this.entity.enrollments.filter(enr => {
-          return enr.class.id === enrollment.class.id
-        }).length > 0;
+    return new Promise(function (resolve, reject) {
+      that.classRepository.listByFilters(filterValue).toPromise()
+        .then(result => {
+          const content = result.content
+            .map(clazz => {
+              const enrollment = new Enrollment();
+              enrollment.class = clazz;
+              return enrollment
+            })
+            .filter(enrollment => {
+              return enrollment['class'].name.toLowerCase().indexOf(filterValue) === 0
+            })
+            .filter(enrollment => {
 
-        return !find
-      })
+              const find = that.entity.enrollments && that.entity.enrollments.filter(enr => {
+                return enr.class.id === enrollment.class.id
+              }).length > 0;
+
+              return !find
+            })
+          resolve(content)
+        })
+        .catch(exception => {
+          reject(exception)
+        })
+    });
   }
 }
