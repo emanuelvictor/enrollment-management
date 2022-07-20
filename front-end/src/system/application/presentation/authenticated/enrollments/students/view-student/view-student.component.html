@@ -41,4 +41,13 @@
       <label class='text'>{{ student.document }}</label>
     </div>
   </div>
+  <vertical-space></vertical-space>
+  <div layout='row' layout-sm='column' layout-xs='column'>
+    <div layout='column' flex>
+      <label class='title'>Matrículas:</label>
+      <mat-chip-list aria-label='Matrículas'>
+        <mat-chip *ngFor='let enrollment of student?.enrollments'>{{enrollment?.class?.name}}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
 </mat-card>

@@ -54,7 +54,7 @@
                 [matChipInputSeparatorKeyCodes]='separatorKeysCodes'>
       </mat-chip-list>
       <mat-autocomplete #auto='matAutocomplete' (optionSelected)='selected($event)'>
-        <mat-option [value]='enrollment' *ngFor='let enrollment of filteredEnrollments' >
+        <mat-option [value]='enrollment' *ngFor='let enrollment of filteredEnrollments'>
           {{enrollment?.class?.name}}
         </mat-option>
       </mat-autocomplete>

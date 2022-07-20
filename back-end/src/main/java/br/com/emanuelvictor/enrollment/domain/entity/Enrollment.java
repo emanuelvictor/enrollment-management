@@ -1,7 +1,9 @@
 package br.com.emanuelvictor.enrollment.domain.entity;
 
 import br.com.emanuelvictor.enrollment.infrastructure.generic.domain.entity.AbstractEntity;
+import com.fasterxml.jackson.annotation.*;
 import com.sun.istack.NotNull;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +26,7 @@ public class Enrollment extends AbstractEntity {
      *
      */
     @NotNull
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "student_id")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private People student;
@@ -32,6 +35,8 @@ public class Enrollment extends AbstractEntity {
      *
      */
     @NotNull
+    @JsonAlias("class")
+    @JsonProperty("class")
     @JoinColumn(name = "clazz_id")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Class clazz;

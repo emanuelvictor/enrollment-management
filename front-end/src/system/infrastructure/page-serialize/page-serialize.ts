@@ -1,5 +1,7 @@
-import {HttpParams} from '@angular/common/http';
-
+import { HttpParams } from '@angular/common/http';
+/**
+ * 
+ */
 export class PageSerialize {
 
   /**

@@ -19,9 +19,12 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
      * @return {@link Page}
      */
     @Query("FROM Enrollment enrollment WHERE ( " +
-            "       (" +
-            "           FILTER(:studentFilter, enrollment.student.id, enrollment.student.email, enrollment.student.document, enrollment.student.name) = TRUE" +
-            "       )" +
+            "       (   " + //todo
+            "           :studentFilter IS NOT NULL AND " +
+            "           (" +
+            "               FILTER(:studentFilter, enrollment.student.id, enrollment.student.email, enrollment.student.document, enrollment.student.name) = TRUE" +
+            "           )" +
+            "       )   OR :studentFilter IS NULL" +
             ")")
     Page<Enrollment> findByFilters(final String studentFilter, final Pageable pageable);
 }

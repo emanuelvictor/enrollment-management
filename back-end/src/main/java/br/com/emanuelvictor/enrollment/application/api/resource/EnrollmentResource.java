@@ -3,6 +3,7 @@ package br.com.emanuelvictor.enrollment.application.api.resource;
 import br.com.emanuelvictor.enrollment.domain.entity.Enrollment;
 import br.com.emanuelvictor.enrollment.domain.service.EnrollmentService;
 import br.com.emanuelvictor.enrollment.infrastructure.generic.application.api.resource.AbstractResource;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class EnrollmentResource extends AbstractResource<Enrollment, Long> {
      * @return {@link Page}
      */
     @GetMapping
-    Page<Enrollment> findByFilters(@RequestParam("studentFilter") final String studentFilter, final Pageable pageable) {
+    Page<Enrollment> findByFilters(final String studentFilter, final Pageable pageable) {
         return ((EnrollmentService) service).findByFilters(studentFilter, pageable);
     }
 

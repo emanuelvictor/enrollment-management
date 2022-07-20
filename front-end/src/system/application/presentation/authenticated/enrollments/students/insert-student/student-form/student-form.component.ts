@@ -40,23 +40,7 @@ export class StudentFormComponent extends CrudViewComponent {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredEnrollments: Enrollment[] = [];
-  allEnrollments: any[] = [
-    {
-      'class': { name: 'Name 1', id: 1 }
-    },
-    {
-      'class': { name: 'Name 2', id: 2 }
-    },
-    {
-      'class': { name: 'Name 3', id: 3 }
-    },
-    {
-      'class': { name: 'Name 45', id: 4 }
-    },
-    {
-      'class': { name: 'Boa Noite', id: 5 }
-    }
-  ];
+  allEnrollments: any[] = [];
 
   @ViewChild('enrollmentsInput', { static: false }) enrollmentsInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
@@ -104,6 +88,7 @@ export class StudentFormComponent extends CrudViewComponent {
           this.filteredEnrollments = content
         })
     })
+
   }
 
   /**
@@ -111,6 +96,15 @@ export class StudentFormComponent extends CrudViewComponent {
    * @param entity 
    */
   emit(entity: any) {
+
+    entity.enrollments = entity.enrollments.map(enrollment => {
+      return {
+        id: enrollment.id,
+        class: { id: enrollment.class.id, name: enrollment.class.name },
+        student: { id: entity.id }
+      }
+    })
+
     this.save.emit(entity)
   }
 

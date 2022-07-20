@@ -4,6 +4,7 @@ import {AuthenticatedViewComponent} from '../../../authenticated-view.component'
 import {MessageService} from '../../../../../../domain/services/message.service';
 import {StudentRepository} from "../../../../../../domain/repository/student.repository";
 import {People} from "../../../../../../domain/entity/people.model";
+import { EnrollmentRepository } from 'system/domain/repository/enrollment.repository';
 
 // @ts-ignore
 @Component({
@@ -32,10 +33,11 @@ export class InsertStudentComponent implements OnInit {
    * @param studentRepository
    */
   constructor(private router: Router,
-              private homeView: AuthenticatedViewComponent,
               private activatedRoute: ActivatedRoute,
               private messageService: MessageService,
-              private studentRepository: StudentRepository) {
+              private homeView: AuthenticatedViewComponent,
+              private studentRepository: StudentRepository,
+              private enrollmentRepository: EnrollmentRepository) {
 
     if (!this.activatedRoute.snapshot.params.id) {
       homeView.toolbar.subhead = 'Aluno / Adicionar';
@@ -64,11 +66,21 @@ export class InsertStudentComponent implements OnInit {
    *
    * @param student
    */
-  public save(student) {
+  public save(student: People) {
     this.studentRepository.save(student)
-      .then(() => {
-        this.router.navigate(['enrollment/students']);
-        this.messageService.toastSuccess(`Novo aluno inserido.`, 5)
+      .then(result => {
+        (student as any).enrollments = student.enrollments.map(enrollment => {
+          return {
+            id: enrollment.id,
+            class : {id : enrollment.class.id, name: enrollment.class.name},
+            student: { id: result.id }
+          }
+        })
+        this.enrollmentRepository.saveAll(student.enrollments)
+          .then(enrollmentsSaved => {
+            this.router.navigate(['enrollment/students']);
+            this.messageService.toastSuccess(`Novo aluno inserido.`, 5)
+          })
       })
   }
 

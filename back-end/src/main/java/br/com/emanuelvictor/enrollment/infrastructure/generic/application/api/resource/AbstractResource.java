@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.Optional;
 /**
  * @param <T>
  */
+@Transactional
 public abstract class AbstractResource<T, ID extends Serializable> {
 
     /**

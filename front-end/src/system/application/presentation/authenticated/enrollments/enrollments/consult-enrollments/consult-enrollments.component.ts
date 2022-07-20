@@ -55,7 +55,7 @@ export class ConsultEnrollmentsComponent implements OnInit {
               private enrollmentRepository: EnrollmentRepository) {
 
     this.displayedColumns.push('acoes');
-    this.pageable = paginationService.pageable('clientId');
+    this.pageable = paginationService.pageable('student.name');
 
   }
 

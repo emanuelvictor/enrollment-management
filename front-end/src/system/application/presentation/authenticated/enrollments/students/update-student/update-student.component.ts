@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticatedViewComponent} from '../../../authenticated-view.component';
-import {MessageService} from '../../../../../../domain/services/message.service';
-import {debounce} from "../../../../../utils/debounce";
-import {FormGroup} from "@angular/forms"
-import {StudentRepository} from "../../../../../../domain/repository/student.repository";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticatedViewComponent } from '../../../authenticated-view.component';
+import { MessageService } from '../../../../../../domain/services/message.service';
+import { debounce } from "../../../../../utils/debounce";
+import { FormGroup } from "@angular/forms"
+import { StudentRepository } from "../../../../../../domain/repository/student.repository";
+import { EnrollmentRepository } from 'system/domain/repository/enrollment.repository';
+import { People } from 'system/domain/entity/people.model';
 
 // @ts-ignore
 @Component({
@@ -33,13 +35,13 @@ export class UpdateStudentComponent implements OnInit {
    * @param studentRepository
    */
   constructor(private router: Router,
-              private homeView: AuthenticatedViewComponent,
-              private activatedRoute: ActivatedRoute,
-              private messageService: MessageService,
-              private studentRepository: StudentRepository) {
+    private activatedRoute: ActivatedRoute,
+    private messageService: MessageService,
+    private homeView: AuthenticatedViewComponent,
+    private studentRepository: StudentRepository,
+    private enrollmentRepository: EnrollmentRepository) {
 
-    homeView.toolbar.subhead = 'Aluno / Editar';
-    this.student.id = +this.activatedRoute.snapshot.params.id;
+    homeView.toolbar.subhead = 'Aluno / Editar'
 
   }
 
@@ -47,9 +49,7 @@ export class UpdateStudentComponent implements OnInit {
    *
    */
   ngOnInit() {
-    if (this.student && this.student.id) {
-      this.findById();
-    }
+    this.findById();
   }
 
 
@@ -67,26 +67,28 @@ export class UpdateStudentComponent implements OnInit {
    *
    */
   public findById() {
-    this.studentRepository.findById(this.student.id)
-      .subscribe(result => this.student = result);
+    this.studentRepository.findById(this.activatedRoute.snapshot.params.id)
+      .subscribe(result => {
+        this.student = result;
+        this.enrollmentRepository.listByFilters({ 'studentFilter': result.document }).subscribe(resutl => {
+          this.student.enrollments = resutl.content;
+        })
+      });
   }
 
   /**
-   *
-   * @param form
+   * 
+   * @param student 
    */
-  public save(form) {
-
-    if (form.invalid) {
-      this.messageService.toastWarning();
-      return;
-    }
-
-    this.studentRepository.save(this.student)
+  public save(student: People) {
+    this.studentRepository.save(student)
       .then(() => {
-        this.router.navigate(['enrollment/students']);
-        this.messageService.toastSuccess(`Alterado com sucesso`, 5);
-      });
+        this.enrollmentRepository.saveAll(student.enrollments)
+          .then(() => {
+            this.router.navigate(['enrollment/students']);
+            this.messageService.toastSuccess(`Alterado com sucesso`, 5)
+          })
+      })
   }
 
   /**
