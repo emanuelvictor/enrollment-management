@@ -26,7 +26,6 @@ public class Enrollment extends AbstractEntity {
      *
      */
     @NotNull
-    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "student_id")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private People student;

@@ -75,7 +75,9 @@ export class ConsultEnrollmentsComponent implements OnInit {
    */
   public sortChange() {
     (this.enrollment as any).sort.sortChange.subscribe(() => {
-      const {active, direction} = (this.enrollment as any).sort;
+      let {active, direction} = (this.enrollment as any).sort;
+      if(active == 'class.name')
+        active = 'clazz.name'
       this.pageable.sort = {'properties': active, 'direction': direction};
       this.listByFilters();
     });

@@ -25,12 +25,6 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @Where(clause = "deleted=false")
 @SQLDelete(sql = "UPDATE class SET deleted = true WHERE id=?")
-@JsonIdentityInfo(
-        property = "id",
-        scope = Class.class,
-        resolver = EntityIdResolver.class,
-        generator = ObjectIdGenerators.PropertyGenerator.class
-)
 public class Class extends AbstractEntity {
 
     /**
