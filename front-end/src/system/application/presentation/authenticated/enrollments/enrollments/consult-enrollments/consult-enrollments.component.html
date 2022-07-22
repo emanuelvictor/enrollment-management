@@ -1,5 +1,4 @@
 <list-page [gender]="'M'"
-           [deletavel]='true'
            [columns]="columns"
            [dataSource]="dataSource"
            [headline]="'Matrículas'"
@@ -10,7 +9,11 @@
            [pageIndex]="pageIndex"
            [rolesToAdd]="['nops']"
            [rolesToEdit]="['nops']"
+           [deletavel]='true'
+           [viewable]='false'
+           [updatable]='false'
            [insertable]='false'
+           [hasAdvancedFilter]='false'
            (delete)="openDeleteDialog($event)"
            [displayedColumns]="displayedColumns">
 </list-page>

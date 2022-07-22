@@ -55,7 +55,7 @@ export class ConsultEnrollmentsComponent implements OnInit {
               private enrollmentRepository: EnrollmentRepository) {
 
     this.displayedColumns.push('acoes');
-    this.pageable = paginationService.pageable('student.name');
+    this.pageable = paginationService.pageable('student.name')
 
   }
 
@@ -115,9 +115,9 @@ export class ConsultEnrollmentsComponent implements OnInit {
             .then(() => {
               this.listByFilters();
               this.messageService.toastSuccess('Matrícula excluída com sucesso')
-            });
+            })
         }
-      });
+      })
   }
 }
 

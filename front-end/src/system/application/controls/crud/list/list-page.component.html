@@ -51,7 +51,7 @@
         {{ column.label }}
       </mat-header-cell>
       <mat-cell *matCellDef='let data'>
-        <data [routerLink]='[data.id]' [translate]='column.translate' [data]='data' [name]='column.name'></data>
+        <data [routerLink]='viewable ? [data.id] : []' [translate]='column.translate' [data]='data' [name]='column.name'></data>
         <!--        <a [routerLink]='[data.id]' ellipsis [matTooltipPosition]="'below'"-->
         <!--           matTooltip="{{ column.translate ? (getData(data, column.name) | translate) || '-' : (getData(data, column.name) || '-')  }}">-->
         <!--           {{ column.translate ? (getData(data, column.name) | translate) || '-' : (getData(data, column.name) || '-')  }}-->
@@ -67,7 +67,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #appMenu="matMenu">
-          <ng-container>
+          <ng-container *ngIf='updatable'>
             <button mat-menu-item [routerLink]="['edit/' + data?.id]">
               Editar
             </button>

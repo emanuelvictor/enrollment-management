@@ -89,6 +89,7 @@ export class UpdateStudentComponent implements OnInit {
             this.messageService.toastSuccess(`Alterado com sucesso`, 5)
           })
       })
+    this.enrollmentRepository.deleteAll(student.enrollmentsToRemove)
   }
 
   /**
@@ -96,7 +97,6 @@ export class UpdateStudentComponent implements OnInit {
    * @param value
    */
   public isString(value): boolean {
-    return typeof value === 'string';
+    return typeof value === 'string'
   }
-
 }

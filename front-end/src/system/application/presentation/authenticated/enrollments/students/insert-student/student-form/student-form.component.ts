@@ -88,7 +88,6 @@ export class StudentFormComponent extends CrudViewComponent {
           this.filteredEnrollments = content
         })
     })
-
   }
 
   /**
@@ -113,13 +112,30 @@ export class StudentFormComponent extends CrudViewComponent {
    * @param event 
    */
   add(event: MatChipInputEvent): void {
+    if (!this.entity.enrollmentsToRemove)
+      this.entity.enrollmentsToRemove = [];
+
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
 
       // Add our class
-      if (value && value != '')
-        this.entity.enrollments.push(value as any);
+      if (value && value != '') {
+        if (this.entity.enrollmentsToRemove.filter(enrollment => {
+          return (enrollment.class.id == (value as any).class.id)
+        }).length <= 0)
+          this.entity.enrollments.push(value as any);
+        else {
+          this.entity.enrollmentsToRemove.forEach(enrollment => {
+            if (enrollment.class.id == (value as any).class.id) {
+              this.entity.enrollments.push(enrollment);
+              const index = this.entity.enrollmentsToRemove.indexOf(enrollment);
+              if (index >= 0)
+                this.entity.enrollmentsToRemove.splice(index, 1)
+            }
+          })
+        }
+      }
 
       // Reset the input value
       if (input)
@@ -134,9 +150,14 @@ export class StudentFormComponent extends CrudViewComponent {
    * @param enrollment 
    */
   remove(enrollment: Enrollment): void {
+    if (!this.entity.enrollmentsToRemove)
+      this.entity.enrollmentsToRemove = [];
+
     const index = this.entity.enrollments.indexOf(enrollment);
     if (index >= 0)
       this.entity.enrollments.splice(index, 1)
+
+    this.entity.enrollmentsToRemove.push(enrollment)
   }
 
   /**
@@ -144,7 +165,27 @@ export class StudentFormComponent extends CrudViewComponent {
    * @param event 
    */
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.entity.enrollments.push(event.option.value);
+    if (!this.entity.enrollmentsToRemove)
+      this.entity.enrollmentsToRemove = [];
+
+    // Add our class
+    if (event.option.value && event.option.value != '') {
+      if (this.entity.enrollmentsToRemove.filter(enrollment => {
+        return (enrollment.class.id == (event.option.value as any).class.id)
+      }).length <= 0) {
+        this.entity.enrollments.push(event.option.value as any);
+      } else {
+        this.entity.enrollmentsToRemove.forEach(enrollment => {
+          if (enrollment.class.id == (event.option.value as any).class.id) {
+            this.entity.enrollments.push(enrollment)
+            const index = this.entity.enrollmentsToRemove.indexOf(enrollment);
+            if (index >= 0)
+              this.entity.enrollmentsToRemove.splice(index, 1)
+          }
+        })
+      }
+    }
+
     this.enrollmentsInput.nativeElement.value = '';
     this.form.controls.enrollments.setValue(null);
   }

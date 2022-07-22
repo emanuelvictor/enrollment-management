@@ -25,7 +25,23 @@ export class EnrollmentRepository extends BaseRepository<Enrollment> {
     const that = this;
     return new Promise(function (resolve, reject) {
       enrollments.forEach(async (enrollment) => {
-        await that.save(enrollment).then(result =>  enrollment = result)
+        await that.save(enrollment).then(result => enrollment = result)
+      })
+
+      resolve(enrollments)
+    })
+  }
+
+  /**
+   * 
+   * @param enrollments 
+   * @returns 
+   */
+  deleteAll(enrollments: Enrollment[]): Promise<Enrollment[]> {
+    const that = this;
+    return new Promise(function (resolve, reject) {
+      enrollments.forEach(async (enrollment) => {
+        await that.delete(enrollment.id).then(() => {})
       })
 
       resolve(enrollments)

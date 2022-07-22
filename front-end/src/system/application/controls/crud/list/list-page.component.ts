@@ -49,6 +49,10 @@ export class ListPageComponent extends CrudViewComponent implements OnInit {
 
   @Input() insertable: boolean = true;
 
+  @Input() updatable: boolean = true;
+
+  @Input() viewable: boolean = true;
+
   @Input() hasAdvancedFilter: boolean = true;
 
   @Input() rolesToAdd: string[] = ['root'];

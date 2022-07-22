@@ -1,4 +1,4 @@
-import {Abstract} from './abstract/abstract.model';
+import { Abstract } from './abstract/abstract.model';
 import { Enrollment } from './enrollment.model';
 
 export class People extends Abstract {
@@ -17,5 +17,10 @@ export class People extends Abstract {
    *
    */
   public enrollments: Enrollment[] = [];
+
+  /**
+   *
+   */
+  public enrollmentsToRemove: Enrollment[] = [];
 
 }
