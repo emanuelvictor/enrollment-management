@@ -8,12 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 
 /**
  *
@@ -23,15 +21,8 @@ import javax.persistence.ManyToOne;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Where(clause = "deleted=false")
 @SQLDelete(sql = "UPDATE class SET deleted = true WHERE id=?")
 public class Class extends AbstractEntity {
-
-    /**
-     *
-     */
-    @ManyToOne
-    private People professor;
 
     /**
      *
@@ -43,6 +34,12 @@ public class Class extends AbstractEntity {
      *
      */
     private boolean deleted = false;
+
+    /**
+     *
+     */
+    @ManyToOne
+    private People professor;
 
     /**
      * @param id {@link Long}

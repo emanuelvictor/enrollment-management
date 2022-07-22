@@ -1,7 +1,7 @@
 <div class='toolbar' layout='row' flex>
   <div layout='column'>
     <div class='headline' [innerHTML]="'Aluno'"></div>
-    <div class='subhead' [innerHTML]="'Aluno / Visualizar'"></div>
+    <div class='subhead' [innerHTML]="'Aluno / Detalhes'"></div>
   </div>
   <div layout='row' layout-align='end center' flex>
     <button mat-raised-button type='button' color='accent' routerLink='../'>
@@ -10,7 +10,7 @@
     </button>
     <div>
       <button mat-raised-button type='button' color='warn'
-              (click)='updateEnabled(student.id)' class='ml-25'
+              (click)='delete(student.id)' class='ml-25'
               [ngClass]="{'activate': !student.deleted, 'inactivate': student.deleted}">
         <mat-icon>{{ student.deleted ? 'check' : 'block' }}</mat-icon>
         <span>{{ student.deleted ? 'Restaurar' : 'Excluir' }}</span>
@@ -41,8 +41,8 @@
       <label class='text'>{{ student.document }}</label>
     </div>
   </div>
-  <vertical-space></vertical-space>
-  <div layout='row' layout-sm='column' layout-xs='column'>
+  <vertical-space *ngIf='student?.enrollments?.length'></vertical-space>
+  <div layout='row' layout-sm='column' layout-xs='column' *ngIf='student?.enrollments?.length'>
     <div layout='column' flex>
       <label class='title'>Matrículas:</label>
       <mat-chip-list aria-label='Matrículas'>

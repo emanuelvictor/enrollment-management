@@ -61,19 +61,16 @@ export class ViewStudentComponent implements OnInit {
         this.student = result;
         this.enrollmentRepository.listByFilters({ 'studentFilter': result.document })
           .subscribe(resul => {
-            this.student.enrollments = resul.content
+            this.student.enrollments = resul.content.filter( enrollment => enrollment.class.deleted == false)
           })
       })
   }
 
   /**
-   *
-   */
-  public updateEnabled(id: number) {
-    this.studentRepository.updateAtivo(id)
-      .then((enabled) => {
-        this.student.enabled = enabled;
-        this.messageService.toastSuccess(this.student.enabled ? 'Ativado com sucesso' : 'Inativado com sucesso')
-      })
+ * 
+ * @param id 
+ */
+  public delete(id) {
+    this.studentRepository.delete(id).then(() => this.router.navigate(["enrollment/students"]))
   }
 }

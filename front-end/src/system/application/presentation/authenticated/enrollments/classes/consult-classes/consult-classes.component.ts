@@ -1,12 +1,12 @@
-import {DialogService} from '../../../../../../domain/services/dialog.service';
-import {MessageService} from '../../../../../../domain/services/message.service';
-import {PaginationService} from '../../../../../../domain/services/pagination.service';
-import {ListPageComponent} from '../../../../../controls/crud/list/list-page.component';
-import {handlePageable} from "../../../../../utils/handle-data-table";
-import {ClassRepository} from "../../../../../../domain/repository/class.repository";
-import {Component, ViewChild} from "@angular/core";
-import {MatTableDataSource} from "@angular/material";
-import {Class} from "../../../../../../domain/entity/class.model";
+import { DialogService } from '../../../../../../domain/services/dialog.service';
+import { MessageService } from '../../../../../../domain/services/message.service';
+import { PaginationService } from '../../../../../../domain/services/pagination.service';
+import { ListPageComponent } from '../../../../../controls/crud/list/list-page.component';
+import { handlePageable } from "../../../../../utils/handle-data-table";
+import { ClassRepository } from "../../../../../../domain/repository/class.repository";
+import { Component, ViewChild } from "@angular/core";
+import { MatTableDataSource } from "@angular/material";
+import { Class } from "../../../../../../domain/entity/class.model";
 
 // @ts-ignore
 @Component({
@@ -17,10 +17,10 @@ import {Class} from "../../../../../../domain/entity/class.model";
 export class ConsultClassesComponent /*implements OnInit */ {
 
   // Bind com o component ListPageComponent
-  @ViewChild(ListPageComponent, {static : true})
+  @ViewChild(ListPageComponent, { static: true })
   private class: Class = new Class();
 
-  public filters: any = {defaultFilter: ''}; // Estado inicial dos filtros
+  public filters: any = { defaultFilter: '' }; // Estado inicial dos filtros
 
   public pageable: any = {
     size: 20,
@@ -34,7 +34,7 @@ export class ConsultClassesComponent /*implements OnInit */ {
   public pageSize: any;
 
   public columns: any[] = [
-    {name: 'name', label: 'Nome'}
+    { name: 'name', label: 'Nome' }
   ];
 
   public displayedColumns: string[] = this.columns.map(cell => cell.name);
@@ -48,9 +48,9 @@ export class ConsultClassesComponent /*implements OnInit */ {
    * @param classRepository {ClassRepository}
    */
   constructor(private dialogService: DialogService,
-              paginationService: PaginationService,
-              private messageService: MessageService,
-              private classRepository: ClassRepository) {
+    paginationService: PaginationService,
+    private messageService: MessageService,
+    private classRepository: ClassRepository) {
 
     this.displayedColumns.push('acoes');
     this.pageable = paginationService.pageable('name');
@@ -73,8 +73,8 @@ export class ConsultClassesComponent /*implements OnInit */ {
    */
   public sortChange() {
     (this.class as any).sort.sortChange.subscribe(() => {
-      const {active, direction} = (this.class as any).sort;
-      this.pageable.sort = {'properties': active, 'direction': direction};
+      const { active, direction } = (this.class as any).sort;
+      this.pageable.sort = { 'properties': active, 'direction': direction };
       this.listByFilters();
     });
   }
@@ -94,7 +94,15 @@ export class ConsultClassesComponent /*implements OnInit */ {
         this.dataSource = new MatTableDataSource(result.content);
         this.totalElements = result.totalElements;
         this.pageSize = result.size;
-        this.pageIndex = result.pageable.pageNumber;      
+        this.pageIndex = result.pageable.pageNumber;
       });
+  }
+  
+  /**
+   * 
+   * @param id 
+   */
+  public delete(id) {
+    this.classRepository.delete(id).then(() => this.listByFilters())
   }
 }

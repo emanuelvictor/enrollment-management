@@ -1,4 +1,4 @@
-package br.com.emanuelvictor.enrollment.application.api.resources;
+package br.com.emanuelvictor.enrollment.application.api.resource;
 
 
 import br.com.emanuelvictor.enrollment.domain.repository.PeopleRepository;

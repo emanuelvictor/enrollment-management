@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -27,7 +29,7 @@ public class Enrollment extends AbstractEntity {
      */
     @NotNull
     @JoinColumn(name = "student_id")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(optional = false)
     private People student;
 
     /**
@@ -37,7 +39,7 @@ public class Enrollment extends AbstractEntity {
     @JsonAlias("class")
     @JsonProperty("class")
     @JoinColumn(name = "clazz_id")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(optional = false)
     private Class clazz;
 
     /**

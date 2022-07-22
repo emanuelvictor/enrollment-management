@@ -1,7 +1,7 @@
 <list-page [gender]="'M'"
            [deletavel]='true'
            [desativavel]='false'
-           [hasAdvancedFilter]='false'
+           [hasAdvancedFilter]='true'
            [columns]="columns"
            [dataSource]="dataSource"
            [headline]="'Turmas'"
@@ -10,9 +10,6 @@
            [totalElements]="totalElements"
            [pageSize]="pageSize"
            [pageIndex]="pageIndex"
-           [rolesToAdd]="['root', 'groups', 'groups/post']"
-           [rolesToView]="['root', 'groups', 'groups/get']"
-           [rolesToEdit]="['root', 'groups', 'groups/put']"
-           [rolesToDelete]="['root', 'groups', 'groups/delete']"
+           (delete)='delete($event?.id)'
            [displayedColumns]="displayedColumns">
 </list-page>

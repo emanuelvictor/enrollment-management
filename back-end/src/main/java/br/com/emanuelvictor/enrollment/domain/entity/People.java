@@ -22,7 +22,6 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Where(clause = "deleted=false")
 @SQLDelete(sql = "UPDATE people SET deleted = true WHERE id=?")
 public class People extends AbstractEntity {
 
