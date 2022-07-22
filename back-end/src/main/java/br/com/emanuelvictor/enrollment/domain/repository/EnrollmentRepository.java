@@ -15,14 +15,14 @@ import org.springframework.stereotype.Repository;
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
     /**
-     * @param studentFilter {@link String}
+     * @param defaultFilter {@link String}
      * @param pageable      {@link Pageable}
      * @return {@link Page}
      */
     @Query("FROM Enrollment enrollment WHERE ( " +
             "       (   " +
             "           (" +
-            "               FILTER(:studentFilter, enrollment.student.id, enrollment.student.email, enrollment.student.document, enrollment.student.name) = TRUE" +
+            "               FILTER(:defaultFilter, enrollment.student.id, enrollment.student.email, enrollment.student.document, enrollment.student.name) = TRUE" +
             "           )" +
             "       )" +
             "       AND " +
@@ -34,5 +34,5 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
             "           enrollment.student.deleted IS FALSE" +
             "       )" +
             ")")
-    Page<Enrollment> findByFilters(final String studentFilter, final Pageable pageable);
+    Page<Enrollment> findByFilters(final String defaultFilter, final Pageable pageable);
 }

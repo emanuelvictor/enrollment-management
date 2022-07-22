@@ -1,9 +1,6 @@
 package br.com.emanuelvictor.enrollment.domain.entity;
 
 import br.com.emanuelvictor.enrollment.infrastructure.generic.domain.entity.AbstractEntity;
-import br.com.emanuelvictor.enrollment.infrastructure.generic.domain.entity.EntityIdResolver;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

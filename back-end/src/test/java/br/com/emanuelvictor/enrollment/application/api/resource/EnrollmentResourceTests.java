@@ -47,7 +47,7 @@ public class EnrollmentResourceTests {
                         .post("/v1/enrollments")
                         .content(
                                 "        {" +
-                                        "    \"clazz\": {\"id\": 1}," +
+                                        "    \"class\": {\"id\": 1}," +
                                         "    \"student\": {\"id\":1}" +
                                         " }"
                         )
@@ -69,7 +69,7 @@ public class EnrollmentResourceTests {
                         .put("/v1/enrollments/1")
                         .content(
                                 "        {" +
-                                        "    \"clazz\": {\"id\": 1}," +
+                                        "    \"class\": {\"id\": 1}," +
                                         "    \"student\": {\"id\":2}" +
                                         " }"
                         )
@@ -125,7 +125,7 @@ public class EnrollmentResourceTests {
                         .get("/v1/enrollments/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"id\":1,\"student\":{\"id\":1,\"name\":\"Emanuel Victor de Oliveira Fonseca\",\"document\":\"07074762911\",\"email\":\"emanuel.info@gmail.com\",\"deleted\":false},\"clazz\":{\"id\":1,\"professor\":null,\"name\":\"Class 1\",\"deleted\":false}}"));
+                .andExpect(content().string("{\"id\":1,\"student\":{\"id\":1,\"name\":\"Emanuel Victor de Oliveira Fonseca\",\"document\":\"07074762911\",\"email\":\"emanuel.info@gmail.com\",\"deleted\":false},\"class\":{\"id\":1,\"name\":\"Class 1\",\"deleted\":false,\"professor\":null}}"));
     }
 
     /**
@@ -139,6 +139,6 @@ public class EnrollmentResourceTests {
                         .get("/v1/enrollments/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].clazz.name", startsWith("Class")));
+                .andExpect(jsonPath("$.content[0].class.name", startsWith("Class")));
     }
 }

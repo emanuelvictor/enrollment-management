@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.validation.ConstraintViolationException;
@@ -123,7 +124,7 @@ public class PeopleRepositoryTests {
 
         // Asserts
         Assertions.assertThat(peopleRepository.findById(1L)).isNotNull();
-        Assertions.assertThat(peopleRepository.findAll().size()).isEqualTo(oldSize - 1);
+        Assertions.assertThat(peopleRepository.findAll(Pageable.unpaged()).getSize()).isEqualTo(oldSize - 1);
     }
 
     /**

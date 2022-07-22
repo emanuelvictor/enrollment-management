@@ -21,8 +21,8 @@ public class EnrollmentResource extends AbstractResource<Enrollment, Long> {
      * @return {@link Page}
      */
     @GetMapping
-    Page<Enrollment> findByFilters(final String studentFilter, final Pageable pageable) {
-        return ((EnrollmentService) service).findByFilters(studentFilter, pageable);
+    Page<Enrollment> findByFilters(final String defaultFilter, final Pageable pageable) {
+        return ((EnrollmentService) service).findByFilters(defaultFilter, pageable);
     }
 
 }

@@ -102,7 +102,7 @@ public class ClassResourceTests {
                         .get("/v1/classes/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"id\":1,\"professor\":null,\"name\":\"Class 1\",\"deleted\":false}"));
+                .andExpect(content().string("{\"id\":1,\"name\":\"Class 1\",\"deleted\":false,\"professor\":null}"));
     }
 
     /**

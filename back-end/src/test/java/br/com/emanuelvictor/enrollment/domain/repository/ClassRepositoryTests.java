@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.jdbc.Sql;
 
 /**
@@ -57,7 +58,7 @@ public class ClassRepositoryTests {
      */
     @Test
     @Sql({"/dataset/truncate.sql", "/dataset/insert_peoples.sql", "/dataset/insert_classes.sql"})
-    public void saveRepteadClassTest() {
+    public void saveRepeatedClassTest() {
 
         final Class clazz = new Class();
         Assertions.assertThat(clazz.getId()).isNull();
@@ -83,7 +84,7 @@ public class ClassRepositoryTests {
 
         // Asserts
         Assertions.assertThat(classRepository.findById(1L)).isNotNull();
-        Assertions.assertThat(classRepository.findAll().size()).isEqualTo(oldSize - 1);
+        Assertions.assertThat(classRepository.findAll(Pageable.unpaged()).getSize()).isEqualTo(oldSize - 1);
     }
 
     /**

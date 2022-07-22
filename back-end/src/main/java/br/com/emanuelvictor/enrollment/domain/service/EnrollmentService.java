@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 public class EnrollmentService extends AbstractService<Enrollment, Long> {
 
     /**
-     * @param studentFilter {@link String}
+     * @param defaultFilter {@link String}
      * @param pageable      {@link Pageable}
      * @return {@link Page}
      */
-    public Page<Enrollment> findByFilters(final String studentFilter, final Pageable pageable) {
-        return ((EnrollmentRepository) repository).findByFilters(studentFilter, pageable);
+    public Page<Enrollment> findByFilters(final String defaultFilter, final Pageable pageable) {
+        return ((EnrollmentRepository) repository).findByFilters(defaultFilter, pageable);
     }
 
 }
